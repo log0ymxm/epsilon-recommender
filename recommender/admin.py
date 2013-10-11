@@ -3,7 +3,8 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin
 
-from recommender.models import CustomUser, VideoGame
+from recommender.auth import CustomUser
+from recommender.models import VideoGame, Review, VideoGameAttribute
 
 class CustomUserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -79,8 +80,25 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+class VideoGameAttributeInlineForm(forms.ModelForm):
+    pass
+
+class VideoGameAttributeInline(admin.TabularInline):
+    model = VideoGameAttribute
+    extra = 2
+    form = VideoGameAttributeInlineForm
+
 class VideoGameAdmin(admin.ModelAdmin):
+    inlines = [VideoGameAttributeInline]
+    pass
+
+class ReviewAdmin(admin.ModelAdmin):
+    pass
+
+class VideoGameAttributeAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(VideoGame, VideoGameAdmin)
+admin.site.register(Review, ReviewAdmin)
+admin.site.register(VideoGameAttribute, VideoGameAttributeAdmin)

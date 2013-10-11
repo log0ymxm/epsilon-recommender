@@ -136,10 +136,11 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
     'django_extensions',
-    'recommender.vendor.voting',
+    #'recommender.vendor.voting',
     'attributes',
     'recommends',
     'recommends.storages.djangoorm',
+    'recommender.vendor.djangoratings',
 )
 
 # A sample logging configuration. The only tangible logging
