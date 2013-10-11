@@ -1,0 +1,12 @@
+Django==1.5.4
+South==0.8.2
+django-attributes==0.2.0
+django-extensions==1.2.2
+django-recommends==0.0.16
+django-tastypie==0.10.0
+django-voting==0.2
+psycopg2==2.5.1
+pygraphviz==1.2
+python-dateutil==2.1
+six==1.4.1
+wsgiref==0.1.2
