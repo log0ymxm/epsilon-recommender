@@ -49,7 +49,7 @@ class EmailApiKeyAuthentication(Authentication):
         #except (RBLUser.DoesNotExist, RBLUser.MultipleObjectsReturned):
         #    return self._unauthorized()
 
-        user, key_auth_check = self.get_key(api_key)
+        (user, key_auth_check) = self.get_key(api_key)
 
         if not self.check_active(user):
             return False
@@ -69,9 +69,9 @@ class EmailApiKeyAuthentication(Authentication):
         try:
             key = ApiKey.objects.get(key=api_key)
         except ApiKey.DoesNotExist:
-            return self._unauthorized()
+            return (null, self._unauthorized())
 
-        return key.user, True
+        return (key.user, True)
 
     def get_identifier(self, request):
         """
@@ -79,8 +79,7 @@ class EmailApiKeyAuthentication(Authentication):
 
         This implementation returns the user's email.
         """
-        auth, api_key = self.extract_credentials(request)
-        return auth or 'nouser'
+        return request.user or 'nouser'
 
 class UserResource(ModelResource):
     class Meta:
