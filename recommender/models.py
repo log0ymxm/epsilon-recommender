@@ -1,4 +1,4 @@
-from django.contrib.gis.db import models
+from django.db import models
 from attributes.models import AttributeOption
 from recommender.auth import CustomUser
 from recommender.vendor.djangoratings.fields import RatingField
@@ -21,8 +21,7 @@ class Review(models.Model):
     comments = models.TextField(null=True, blank=True)
 
     def __unicode__():
-        return '%s - %s' % (self.user, self.rating)
-
+        return '%s - %s' % (self.user, self.video_game)
 
 class VideoGameAttribute(models.Model):
     video_game = models.ForeignKey(VideoGame)

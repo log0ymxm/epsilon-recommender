@@ -1,7 +1,6 @@
-from django.contrib.gis.db import models
+from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from tastypie.models import create_api_key
-from django.utils.encoding import python_2_unicode_compatible
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -32,13 +31,12 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-@python_2_unicode_compatible
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    email = models.EmailField(unique=True, blank=True, null=True)
+    email = models.EmailField(unique=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
