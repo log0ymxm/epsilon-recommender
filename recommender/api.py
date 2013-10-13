@@ -4,10 +4,83 @@ from tastypie.serializers import Serializer
 from tastypie.authorization import Authorization, DjangoAuthorization
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.exceptions import Unauthorized
+from tastypie.authentication import Authentication
+from tastypie.http import HttpUnauthorized, HttpForbidden
 
 from attributes.models import AttributeOption
 from recommender.models import VideoGame, Review, VideoGameAttribute
 from recommender.auth import CustomUser
+
+class EmailApiKeyAuthentication(Authentication):
+    def _unauthorized(self):
+        return HttpUnauthorized()
+
+    def extract_credentials(self, request):
+        if request.META.get('HTTP_AUTHORIZATION') and request.META['HTTP_AUTHORIZATION'].lower().startswith('apikey '):
+            (auth_type, data) = request.META['HTTP_AUTHORIZATION'].split()
+
+            if auth_type.lower() != 'apikey':
+                raise ValueError("Incorrect authorization header.")
+
+            api_key = data
+        else:
+            api_key = request.GET.get('api_key') or request.POST.get('api_key')
+
+        return api_key
+
+    def is_authenticated(self, request, **kwargs):
+        """
+        Finds the user and checks their API key.
+
+        Should return either ``True`` if allowed, ``False`` if not or an
+        ``HttpResponse`` if you need something custom.
+        """
+
+        try:
+            api_key = self.extract_credentials(request)
+        except ValueError:
+            return self._unauthorized()
+
+        if not api_key:
+            return self._unauthorized()
+
+        #try:
+        #    user = RBLUser.objects.get(=auth)
+        #except (RBLUser.DoesNotExist, RBLUser.MultipleObjectsReturned):
+        #    return self._unauthorized()
+
+        user, key_auth_check = self.get_key(api_key)
+
+        if not self.check_active(user):
+            return False
+
+        if key_auth_check and not isinstance(key_auth_check, HttpUnauthorized):
+            request.user = user
+
+        return key_auth_check
+
+    def get_key(self, api_key):
+        """
+        Attempts to find the API key for the user. Uses ``ApiKey`` by default
+        but can be overridden.
+        """
+        from tastypie.models import ApiKey
+
+        try:
+            key = ApiKey.objects.get(key=api_key)
+        except ApiKey.DoesNotExist:
+            return self._unauthorized()
+
+        return key.user, True
+
+    def get_identifier(self, request):
+        """
+        Provides a unique string identifier for the requestor.
+
+        This implementation returns the user's email.
+        """
+        auth, api_key = self.extract_credentials(request)
+        return auth or 'nouser'
 
 class UserResource(ModelResource):
     class Meta:
