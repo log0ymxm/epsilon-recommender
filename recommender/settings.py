@@ -182,8 +182,8 @@ TASTYPIE_ALLOW_MISSING_SLASH = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTH_USER_MODEL = 'recommender.CustomUser'
 
-HEROKU_PRODUCTION = bool(os.environ.get('HEROKU_PRODUCTION', False))
-if HEROKU_PRODUCTION:
+PRODUCTION = bool(os.environ.get('ONFRST_PRODUCTION', False))
+if PRODUCTION:
     DEBUG = False
 
     SESSION_COOKIE_SECURE = True
