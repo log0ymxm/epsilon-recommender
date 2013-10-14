@@ -5,6 +5,7 @@ Installing and creating the database. We'll use postgres in production. Here are
 
     # ubuntu only
     sudo apt-get install postgres pgadmin3
+    sudo apt-get install libatlas-base-dev gfortran
 
     # running the psql command as the postgres user, we will
     # execute SQL to create our db user, and project database
