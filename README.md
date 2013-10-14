@@ -39,28 +39,6 @@ Setting up the project for local development
     recommender/manage.py migrate
     recommender/manage.py runserver
 
-## Deploying to Heroku
-
-    # Requires rubygems
-    sudo apt-get install ruby rubygems
-    gem install heroku
-
-    # If you don't have the heroku remote branch (only once)
-    git remote add heroku git@heroku.com:erecommender.git
-
-    # Other than that it's easy, you push like you would to github
-    git push heroku master
-
-    # Opening the site
-    heroku open
-
-    # Running commands
-    heroku run recommender/manage.py migrate
-    heroku logs
-
-    # Getting heroku help
-    heroku help
-
 ## External Documentation
 
 - [Python](http://docs.python.org/2/) - The language we're using
@@ -81,4 +59,3 @@ Setting up the project for local development
 - [Angular JS](http://angularjs.org/) - Javascript framework for easing data binding, and structuring a js app
 
 - [Github](https://help.github.com/) - Git hosting, with some great documentation
-- [Heroku](https://devcenter.heroku.com/) - Application host, also has some great documentation on various topics
