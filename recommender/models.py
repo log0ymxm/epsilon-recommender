@@ -6,6 +6,7 @@ from recommender.vendor.djangoratings.fields import RatingField
 class VideoGame(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField()
+    ign_url = models.CharField(max_length=500, unique=True, help_text="The relative url for this game at http://www.ign.com")
 
     class Meta:
         verbose_name = "Video Game"

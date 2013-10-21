@@ -1,5 +1,8 @@
+Divisi2==2.2.5
 Django==1.5.4
 South==0.8.2
+beautifulsoup4==4.3.2
+csc-pysparse==1.1.1.4
 csc-utils==0.6.7
 dj-database-url==0.2.2
 dj-static==0.0.5
@@ -21,5 +24,3 @@ scipy==0.12.0
 six==1.4.1
 static==0.4
 wsgiref==0.1.2
-Divisi2==2.2.5
-csc-pysparse==1.1.1.4
