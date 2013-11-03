@@ -224,6 +224,6 @@ class Command(BaseCommand):
             #if i > 10:
             #    break
 
-            seconds = 10
+            seconds = 2
             self.stdout.write('Sleeping for %s seconds' % seconds)
             time.sleep(seconds)
