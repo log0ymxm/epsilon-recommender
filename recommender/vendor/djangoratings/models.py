@@ -3,8 +3,9 @@ from datetime import datetime
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-#from django.contrib.auth.models import User
-from recommender.auth import CustomUser
+#from django.contrib.auth import get_user_model
+#CustomUser = get_user_model()
+from recommender.models import CustomUser
 
 try:
     from django.utils.timezone import now
