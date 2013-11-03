@@ -22,3 +22,13 @@ http://www.ign.com/games/all-ajax?startIndex=150
 
     # will iterate all non-scraped video games in the database and pull info from their ign_url
     ./manage.py 002_populate_game_details
+
+## CustomeUser error
+
+For some reason management commands import the models differently from all the other and throw an error trying to scrape. Temporarily change the code in `recommender/vendor/djangoratings/models.py`
+
+    from django.contrib.auth import get_user_model
+    CustomUser = get_user_model()
+    #from recommender.models import CustomUser
+
+Don't commit these changes, they break the server. There is definitely a deeper bug here, we may come across.
