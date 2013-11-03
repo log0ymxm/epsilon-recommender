@@ -90,12 +90,14 @@ class VideoGameAttributeInline(admin.TabularInline):
 
 class VideoGameAdmin(admin.ModelAdmin):
     inlines = [VideoGameAttributeInline]
+    list_display= ('name', 'ign_url', 'description',)
     pass
 
 class ReviewAdmin(admin.ModelAdmin):
     pass
 
 class VideoGameAttributeAdmin(admin.ModelAdmin):
+    raw_id_fields = ('video_game',)
     pass
 
 admin.site.register(CustomUser, CustomUserAdmin)
