@@ -211,7 +211,7 @@ class Command(BaseCommand):
                 for i in range(len(specifications)):
                     if specifications[i].strong:
                         specifications[i] = specifications[i].strong.string
-                    else:
+                    elif specifications[i].string:
                         specifications[i] = specifications[i].string.strip()
             self.store_attribute(game, specifications, 'Specifications', 'specifications')
 
