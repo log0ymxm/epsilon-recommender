@@ -11,6 +11,7 @@ class VideoGame(models.Model):
     class Meta:
         verbose_name = "Video Game"
         verbose_name_plural = "Video Games"
+        ordering = ('name',)
 
     def __unicode__(self):
         return self.name
