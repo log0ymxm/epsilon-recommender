@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.utils.encoding import smart_str
 from bs4 import BeautifulSoup
 import urllib2
 import time
@@ -27,7 +28,7 @@ class Command(BaseCommand):
         if created:
             self.debug('- option created -', option)
         attribute, created = VideoGameAttribute.objects.get_or_create(
-            value=str(value),
+            value=smart_str(value),
             option=option,
             video_game=video_game
             )
@@ -224,6 +225,6 @@ class Command(BaseCommand):
             #if i > 10:
             #    break
 
-            seconds = 2
+            seconds = 3
             self.stdout.write('Sleeping for %s seconds' % seconds)
             time.sleep(seconds)
