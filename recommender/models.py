@@ -27,7 +27,7 @@ class Review(models.Model):
 class VideoGameAttribute(models.Model):
     video_game = models.ForeignKey(VideoGame)
     option = models.ForeignKey(AttributeOption)
-    value = models.CharField("Value", max_length=255)
+    value = models.TextField()
 
     def _name(self):
         return self.option.name
