@@ -1,5 +1,6 @@
 import os
 import django
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 # Django settings for recommender project.
 
@@ -101,6 +102,10 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -138,6 +143,9 @@ INSTALLED_APPS = (
     'django_extensions',
     #'recommender.vendor.voting',
     'attributes',
+    'registration',
+    'crispy_forms',
+
     'recommends',
     'recommends.storages.djangoorm',
     'recommender.vendor.djangoratings',
@@ -181,6 +189,11 @@ TASTYPIE_ALLOW_MISSING_SLASH = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTH_USER_MODEL = 'recommender.CustomUser'
+
+ACCOUNT_ACTIVATION_DAYS = 7
+LOGIN_REDIRECT_URL = '/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 PRODUCTION = bool(os.environ.get('ONFRST_PRODUCTION', False))
 if PRODUCTION:

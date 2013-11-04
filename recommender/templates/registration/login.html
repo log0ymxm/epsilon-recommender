@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <div class="well">
+
+        <form method="post" action="." class="form">
+          <fieldset>
+            <legend>Log In</legend>
+            <input type="hidden" name="next" value="{{ next }}" />
+            {% csrf_token %}
+            {{ form | crispy }}
+
+            <div class="control-group">
+              <input type="submit" value="{% trans 'Log in' %}" class="btn btn-default col-md-2" />
+              <ul class="col-md-offset-2">
+                <li>{% trans "Forgot your password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a></li>
+                <li>{% trans "Not a member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a></li>
+              </ul>
+            </div>
+
+          </fieldset>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
