@@ -21,6 +21,8 @@ Setting up the project for local development
     source venv/bin/activate
 
     # Install dependencies
+    pip install numpy==1.7.1
+    pip install scipy==0.12.0
     pip install -r requirements.txt
 
     # Setup database
