@@ -31,8 +31,8 @@
           <li class="{% if '/' == request.path %}active{% endif %}">
             <a href="/">Home</a>
           </li>
-	  <li class="{% if '/' == request.path %}active{% endif %}">
-	    <a href="/">Search and Rate</a>
+	  <li class="{% if '/search_and_rate' == request.path %}active{% endif %}">
+	    <a href="/search_and_rate">Search and Rate</a>
 	  </li>
 	  <li class="{% if '/' == request.path %}active{% endif %}">
 	    <a href="/">Popular Games by Genre</a>

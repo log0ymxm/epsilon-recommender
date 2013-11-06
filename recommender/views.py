@@ -19,9 +19,18 @@ def home(request):
 def recommendations(request):
     title = "Recommendations"
 
+
     video_games = VideoGame.objects.filter(~Q(name='') &
                                            ~Q(description=''))[:8]
    
     return render_to_response('recommendations.html',
+                              locals(),
+                              context_instance=RequestContext(request))
+
+def search_and_rate(request):
+    title = "Search and Rate"
+    video_games = VideoGame.objects.filter(~Q(name='') &
+                                           ~Q(description=''))[:5]
+    return render_to_response('search_and_rate.html',
                               locals(),
                               context_instance=RequestContext(request))

@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'recommender.views.home', name='home'),
     url(r'^recommendations$', 'recommender.views.recommendations', name='recommendations'),
+
+    url(r'^search_and_rate$', 'recommender.views.search_and_rate', name='search_and_rate'),
     # url(r'^recommender/', include('recommender.foo.urls')),
 
     url(r'^api/', include(v1_api.urls)),
