@@ -3,9 +3,8 @@ from datetime import datetime
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-#from django.contrib.auth import get_user_model
-#CustomUser = get_user_model()
-from recommender.models import CustomUser
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 try:
     from django.utils.timezone import now
@@ -19,7 +18,7 @@ class Vote(models.Model):
     object_id       = models.PositiveIntegerField()
     key             = models.CharField(max_length=32)
     score           = models.IntegerField()
-    user            = models.ForeignKey(CustomUser, blank=True, null=True, related_name="votes")
+    user            = models.ForeignKey(User, blank=True, null=True, related_name="votes")
     ip_address      = models.IPAddressField()
     cookie          = models.CharField(max_length=32, blank=True, null=True)
     date_added      = models.DateTimeField(default=now, editable=False)
@@ -67,8 +66,8 @@ class Score(models.Model):
         return u"%s scored %s with %s votes" % (self.content_object, self.score, self.votes)
 
 class SimilarUser(models.Model):
-    from_user       = models.ForeignKey(CustomUser, related_name="similar_users")
-    to_user         = models.ForeignKey(CustomUser, related_name="similar_users_from")
+    from_user       = models.ForeignKey(User, related_name="similar_users")
+    to_user         = models.ForeignKey(User, related_name="similar_users_from")
     agrees          = models.PositiveIntegerField(default=0)
     disagrees       = models.PositiveIntegerField(default=0)
     exclude         = models.BooleanField(default=False)
@@ -82,7 +81,7 @@ class SimilarUser(models.Model):
         print u"%s %s similar to %s" % (self.from_user, self.exclude and 'is not' or 'is', self.to_user)
 
 class IgnoredObject(models.Model):
-    user            = models.ForeignKey(CustomUser)
+    user            = models.ForeignKey(User)
     content_type    = models.ForeignKey(ContentType)
     object_id       = models.PositiveIntegerField()
 

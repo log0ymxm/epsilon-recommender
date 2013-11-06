@@ -1,7 +1,19 @@
 from django.db import models
 from attributes.models import AttributeOption
-from recommender.auth import CustomUser
+from django.contrib.auth.models import User
+from tastypie.models import create_api_key
 from recommender.vendor.djangoratings.fields import RatingField
+
+# Ensure that api keys are created on user creation
+models.signals.post_save.connect(create_api_key, sender=User)
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True)
+    bio = models.CharField(max_length=500, blank=True, null=True)
+    url = models.URLField(max_length=500, blank=True, null=True)
+
+    def __unicode__(self):
+        return "Profile - %s" % (self.user)
 
 class VideoGame(models.Model):
     name = models.CharField(max_length=500)
@@ -17,7 +29,7 @@ class VideoGame(models.Model):
         return self.name
 
 class Review(models.Model):
-    user = models.ForeignKey(CustomUser)
+    user = models.ForeignKey(User)
     video_game = models.ForeignKey(VideoGame)
     rating = RatingField(range=5, can_change_vote=True)
     comments = models.TextField(null=True, blank=True)

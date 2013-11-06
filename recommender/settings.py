@@ -188,7 +188,7 @@ XS_SHARING_ALLOWED_CREDENTIALS = 'true'
 TASTYPIE_ALLOW_MISSING_SLASH = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-AUTH_USER_MODEL = 'recommender.CustomUser'
+AUTH_PROFILE_MODEL = 'recommender.UserProfile'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'

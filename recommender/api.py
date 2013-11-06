@@ -9,7 +9,7 @@ from tastypie.http import HttpUnauthorized, HttpForbidden
 
 from attributes.models import AttributeOption
 from recommender.models import VideoGame, Review, VideoGameAttribute
-from recommender.auth import CustomUser
+from django.contrib.auth.models import User
 
 class EmailApiKeyAuthentication(Authentication):
     def _unauthorized(self):
@@ -83,13 +83,13 @@ class EmailApiKeyAuthentication(Authentication):
 
 class UserResource(ModelResource):
     class Meta:
-        queryset = CustomUser.objects.all()
+        queryset = User.objects.all()
         resource_name = 'user'
         serializer = Serializer(formats=['jsonp', 'json'])
         authorization = DjangoAuthorization()
         authentication = EmailApiKeyAuthentication()
         trailing_slash = False
-        fields = ['id', 'name', 'email']
+        fields = ['id', 'username', 'email']
 
 class VideoGameResource(ModelResource):
     class Meta:
