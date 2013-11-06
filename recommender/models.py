@@ -15,30 +15,56 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return "Profile - %s" % (self.user)
 
+class Feature(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Video Game Feature'
+
+    def __unicode__(self):
+        return self.name
+
+class Platform(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Video Game Platform'
+
+    def __unicode__(self):
+        return self.name
+
+class Specification(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Video Game Specification'
+
+    def __unicode__(self):
+        return self.name
+
 class VideoGame(models.Model):
     name = models.CharField(max_length=500)
     description = models.TextField()
     ign_url = models.CharField(max_length=500, unique=True, help_text="The relative url for this game at http://www.ign.com")
 
-    # TODO
-    # features
-    # ign_games_you_may_like
-    # platforms
-    # specifications
     developer = models.CharField(max_length=255, blank=True, null=True)
     developer_url = models.URLField(blank=True, null=True)
     esrb_rating = models.DecimalField(decimal_places=3, max_digits=6, blank=True, null=True)
     esrb_rating_description = models.TextField(blank=True, null=True)
+    features = models.ManyToManyField(Feature, blank=True, null=True)
     genre = models.CharField(max_length=255, blank=True, null=True)
     ign_community_rating = models.DecimalField(decimal_places=3, max_digits=6, blank=True, null=True)
     ign_community_rating_count = models.IntegerField(blank=True, null=True)
+    ign_games_you_may_like = models.ManyToManyField('self', blank=True, null=True)
     ign_image = models.URLField(blank=True, null=True)
     ign_rating = models.DecimalField(decimal_places=3, max_digits=6, blank=True, null=True)
     ign_subheadline = models.CharField(max_length=255, blank=True, null=True)
     ign_wiki_edits = models.IntegerField(blank=True, null=True)
+    platforms = models.ManyToManyField(Platform, blank=True, null=True)
     publisher = models.CharField(max_length=255, blank=True, null=True)
     publisher_url = models.URLField(blank=True, null=True)
     release_date = models.DateField(blank=True, null=True)
+    specifications = models.ManyToManyField(Specification, blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
 
     class Meta:

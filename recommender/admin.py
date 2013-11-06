@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin
 
-from recommender.models import VideoGame, Review, VideoGameAttribute, UserProfile
+from recommender.models import *
 
 class VideoGameAttributeInlineForm(forms.ModelForm):
     pass
@@ -32,3 +32,6 @@ admin.site.register(VideoGame, VideoGameAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(VideoGameAttribute, VideoGameAttributeAdmin)
 admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(Feature)
+admin.site.register(Platform)
+admin.site.register(Specification)
