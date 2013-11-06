@@ -9,7 +9,7 @@ def home(request):
 
     # SELECT * FROM videio_game WHERE name is not null LIMIT 5
     video_games = VideoGame.objects.filter(~Q(name='') &
-                                           ~Q(description=''))[:5]
+                                           ~Q(description=''))[:8]
     print '---', video_games
 
     return render_to_response('home.html',
