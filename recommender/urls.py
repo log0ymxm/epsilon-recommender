@@ -17,6 +17,7 @@ v1_api.register(VideoGameAttributeResource())
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'recommender.views.home', name='home'),
+    url(r'^recommendations$', 'recommender.views.recommendations', name='recommendations'),
     # url(r'^recommender/', include('recommender.foo.urls')),
 
     url(r'^api/', include(v1_api.urls)),
