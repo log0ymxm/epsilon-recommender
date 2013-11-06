@@ -18,6 +18,9 @@ def home(request):
 
 def recommendations(request):
     title = "Recommendations"
+
+    video_games = VideoGame.objects.filter(~Q(name='') &
+                                           ~Q(description=''))[:8]
    
     return render_to_response('recommendations.html',
                               locals(),

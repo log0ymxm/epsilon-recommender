@@ -6,14 +6,30 @@
       <h1>Results just for you</h1>
     </div>
   </div>
+  <br/><br/><br/>
   <div class="row">
     <div class="col-md-12">
+      
       {% for v in video_games %}
+      {% if forloop.counter0|divisibleby:4 %}
+      <div class="row">
+      {% endif %}
+      <div class="col-md-3">
+
+
+	<img src="http://i880.photobucket.com/albums/ac9/joseyjara/gameRcommender/gta_zps760e6104.jpg" border="0" width="150px" alt=" photo gta_zps760e6104.jpg"/>
+	
       <h2>{{v.name}}</h2>
       <p>
 	{{v.description}}
       </p>
+      </div>
+      {% if forloop.counter|divisibleby:4 %}
+      </div>
+      {% endif %}
+      
       {% endfor %}
+      
     </div>
   </div>
 </div>
