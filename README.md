@@ -36,7 +36,7 @@ Setting up the project for local development
 ## Running in development
 
     # fetch any new changes, and rebase your changes cleanly
-    git pull origin --rebase master
+    git pull --rebase origin master
 
     # enter venv, migrate database, and start server
     source venv/bin/activate
