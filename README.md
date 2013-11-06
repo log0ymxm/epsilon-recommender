@@ -29,10 +29,10 @@ Setting up the project for local development
 
     # Setup database
     pip install --upgrade django-crispy-forms #if error is thrown when syncdb is ran
-    recommender/manage.py syncdb
-    recommender/manage.py migrate recommender # run our migrations first
-    recommender/manage.py migrate # run all migrations, includes any 3rd-party migrations
-    recommender/manage.py createsuperuser
+    ./manage.py syncdb
+    ./manage.py migrate recommender # run our migrations first
+    ./manage.py migrate # run all migrations, includes any 3rd-party migrations
+    ./manage.py createsuperuser
 
 ## Running in development
 
@@ -41,7 +41,7 @@ Setting up the project for local development
 
     # enter venv, migrate database, and start server
     source venv/bin/activate
-    recommender/manage.py migrate
+    recomender/manage.py migrate
     recommender/manage.py runserver
 
 ## External Documentation
