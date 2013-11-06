@@ -28,7 +28,6 @@ Setting up the project for local development
     pip install -r requirements.txt
 
     # Setup database
-    pip install --upgrade django-crispy-forms #if error is thrown when syncdb is ran
     ./manage.py syncdb
     ./manage.py migrate recommender # run our migrations first
     ./manage.py migrate # run all migrations, includes any 3rd-party migrations
