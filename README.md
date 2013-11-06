@@ -1,4 +1,3 @@
-
 ## Setting up a development environment
 
 Installing and creating the database. We'll use postgres in production. Here are the commands to set this up on an Ubunut linux machine. On OSX or Windows you'll have to visit the postgres site and find an installer.
@@ -29,6 +28,7 @@ Setting up the project for local development
     pip install -r requirements.txt
 
     # Setup database
+    pip install --upgrade django-crispy-forms #if error is thrown when syncdb is ran
     recommender/manage.py syncdb
     recommender/manage.py migrate recommender # run our migrations first
     recommender/manage.py migrate # run all migrations, includes any 3rd-party migrations
