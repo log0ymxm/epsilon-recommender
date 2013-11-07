@@ -99,7 +99,7 @@ class Command(BaseCommand):
                 ign_community_rating_count = ign_community_rating_count.find(class_="ratingCount")
             if ign_community_rating_count:
                 game.ign_community_rating_count = ign_community_rating_count.b.string
-                print 'len', game.ign_community_rating_count
+                #print 'len', game.ign_community_rating_count
 
             ###
             ign_articlesubHeadline = soup.find(class_="articlesubHeadline")
@@ -157,7 +157,7 @@ class Command(BaseCommand):
             ###
             gameInfo_list = soup.find_all(class_="gameInfo-list")
             #self.debug('gameInfo_list', gameInfo_list[1].find_all('div')[0])
-            print '-----'
+            #print '-----'
 
             if len(gameInfo_list) > 1:
                 game.genre = gameInfo_list[1].find_all('div')[0].a.string.strip()
@@ -198,12 +198,12 @@ class Command(BaseCommand):
                 features = features.find_all('li')
                 for i in range(len(features)):
                     f = smart_str(features[i].string)
-                    print '--- f', f
+                    #print '--- f', f
                     feature, c = Feature.objects.get_or_create(name=f)
-                    try:
-                        print '--- feature', feature, c
-                    except:
-                        pass
+                    #try:
+                    #    print '--- feature', feature, c
+                    #except:
+                    #    pass
                     game.features.add(feature)
 
             ###
@@ -213,14 +213,14 @@ class Command(BaseCommand):
                 specifications = specifications.find_all('li')
                 for i in range(len(specifications)):
                     name = specifications[i]
-                    print '--- spec', name
+                    #print '--- spec', name
                     if name.strong:
                         name = smart_str(name.strong.string)
                     elif name.string:
                         name = smart_str(name.string.strip())
 
                     s, created = Specification.objects.get_or_create(name=name)
-                    print '--- s', s, created
+                    #print '--- s', s, created
                     game.specifications.add(s)
 
             ###
