@@ -26,13 +26,13 @@ def recommendations(request):
                               locals(),
                               context_instance=RequestContext(request))
 
-def search_and_rate(request):
-    title = "Search and Rate"
+def search(request):
+    title = "Search"
 
     video_games = VideoGame.objects.filter(~Q(name='') &
                                             ~Q(description='') &
                                             Q(ign_image__isnull=False))[:5]
 
-    return render_to_response('search_and_rate.html',
+    return render_to_response('search.html',
                               locals(),
                               context_instance=RequestContext(request))
