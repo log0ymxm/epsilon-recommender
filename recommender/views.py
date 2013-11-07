@@ -6,10 +6,10 @@ from recommender.models import VideoGame
 
 def home(request):
     title = "Home"
-
     video_games = VideoGame.objects.filter(~Q(name='') &
                                             ~Q(description='') &
-                                            Q(ign_image__isnull=False))[:8]
+                                            Q(ign_image__isnull=False)
+                                            ).order_by('?')[:8]
 
     return render_to_response('home.html',
                               locals(),
@@ -17,10 +17,10 @@ def home(request):
 
 def recommendations(request):
     title = "Recommendations"
-
     video_games = VideoGame.objects.filter(~Q(name='') &
                                             ~Q(description='') &
-                                            Q(ign_image__isnull=False))[:8]
+                                            Q(ign_image__isnull=False)
+                                            ).order_by('?')[:8]
 
     return render_to_response('recommendations.html',
                               locals(),
@@ -28,10 +28,10 @@ def recommendations(request):
 
 def search(request):
     title = "Search"
-
     video_games = VideoGame.objects.filter(~Q(name='') &
                                             ~Q(description='') &
-                                            Q(ign_image__isnull=False))[:5]
+                                            Q(ign_image__isnull=False)
+                                            ).order_by('?')[:5]
 
     return render_to_response('search.html',
                               locals(),
