@@ -17,7 +17,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         games = VideoGame.objects.filter(ign_url__isnull=False,
-                                         ign_image__isnull=True)
+                                         ign_image__isnull=True
+                                         ).order_by('?')
         self.stdout.write('Games to scrape: %s' % len(games))
 
         for i in range(len(games)):
