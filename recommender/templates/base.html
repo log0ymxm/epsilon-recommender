@@ -53,6 +53,9 @@
                   {% trans "Change password" %}
                 </a>
               </li>
+              {% if user.is_staff %}
+              <li> <a href="/admin"> Admin </a> </li>
+              {% endif %}
               <li class="divider"></li>
               <li>
                 <a href="{% url 'auth_logout' %}">
