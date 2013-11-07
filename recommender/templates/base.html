@@ -1,6 +1,8 @@
 {% load i18n %}
+{% load static %}
+{% get_static_prefix as STATIC_URL %}
 <!DOCTYPE HTML>
-<html>
+<html ng-app="app" ng-controller="AppCtrl">
   <head>
     <title>{{title}}</title>
 
@@ -76,8 +78,10 @@
     {% endblock %}
 
     {% block js %}
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="{{STATIC_URL}}/js/app.js"></script>
     {% block extended_js %}{% endblock %}
     {% endblock %}
 
