@@ -52,6 +52,7 @@ class VideoGame(models.Model):
     esrb_rating_description = models.TextField(blank=True, null=True)
     features = models.ManyToManyField(Feature, blank=True, null=True)
     genre = models.CharField(max_length=255, blank=True, null=True)
+    genre_slug = models.SlugField()
     ign_community_rating = models.DecimalField(decimal_places=3, max_digits=6, blank=True, null=True)
     ign_community_rating_count = models.IntegerField(blank=True, null=True)
     ign_games_you_may_like = models.ManyToManyField('self', blank=True, null=True)
@@ -64,6 +65,7 @@ class VideoGame(models.Model):
     publisher_url = models.URLField(blank=True, null=True)
     release_date = models.DateField(blank=True, null=True)
     release_date_malformed = models.CharField(max_length=255, blank=True, null=True, help_text="This represents a release_date that might not be parseable into a date.")
+    slug = models.SlugField()
     specifications = models.ManyToManyField(Specification, blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
 
