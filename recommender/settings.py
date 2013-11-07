@@ -4,7 +4,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 # Django settings for recommender project.
 
-DEBUG = True
+DEBUG = bool(os.environ.get('DEBUG', True))
 TEMPLATE_DEBUG = DEBUG
 TASTYPIE_FULL_DEBUG = DEBUG
 
@@ -187,7 +187,14 @@ XS_SHARING_ALLOWED_CREDENTIALS = 'true'
 
 TASTYPIE_ALLOW_MISSING_SLASH = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = os.environ.get('EMAIL_HOST', 587)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST', 'paulnglsh@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST', '')
+EMAIL_USE_TLS = bool(os.environ.get('EMAIL_HOST', True))
+EMAIL_USE_SSL = bool(os.environ.get('EMAIL_HOST', True))
+
 AUTH_PROFILE_MODEL = 'recommender.UserProfile'
 
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -195,10 +202,11 @@ LOGIN_REDIRECT_URL = '/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-PRODUCTION = bool(os.environ.get('ONFRST_PRODUCTION', False))
-if PRODUCTION:
-    DEBUG = False
+RATINGS_VOTES_PER_IP = 3
 
+PRODUCTION = bool(os.environ.get('ONFRST_PRODUCTION', False))
+
+if PRODUCTION:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
@@ -222,18 +230,3 @@ if PRODUCTION:
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
     )
-
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_HOST_USER = 'paulnglsh@gmail.com'
-    EMAIL_HOST_PASSWORD = 'rofl'
-    EMAIL_USE_TLS = True
-    EMAIL_USE_SSL = True
-
-# Use local_settings if found
-try:
-    from local_settings import *
-except ImportError:
-    pass

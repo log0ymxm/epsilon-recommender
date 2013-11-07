@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.encoding import smart_str
+from django.db import IntegrityError
 from bs4 import BeautifulSoup
+from recommender.utils import slugify
 import urllib2
 import time
 import datetime
@@ -44,6 +46,7 @@ class Command(BaseCommand):
                 description = ''
 
             game.name=title
+            game.slug=slugify(title)
             game.description=description
             game.ign_image = soup.find(attrs={'property': 'og:image'}).get('content')
 
@@ -52,7 +55,13 @@ class Command(BaseCommand):
                 platform = platforms[i].a
                 if platform:
                     platform = smart_str(platform.string)
-                    p, created = Platform.objects.get_or_create(name=platform)
+                    try:
+                        p, created = Platform.objects.get_or_create(name=platform
+                                                                    ,slug=slugify(platform))
+                    except IntegrityError:
+                        p = Platform.objects.get(name=platform)
+                        p.slug = slugify(platform)
+                        p.save()
                     game.platforms.add(p)
 
             release_date = soup.find(class_="releaseDate")
@@ -134,6 +143,7 @@ class Command(BaseCommand):
                 genre = gameInfo_list[1]
                 if genre:
                     game.genre = genre.find_all('div')[0].a.string.strip()
+                    game.genre_slug = slugify(game.genre)
 
             if len(gameInfo_list) > 1:
                 publisher = gameInfo_list[1].find_all('div')
@@ -177,7 +187,12 @@ class Command(BaseCommand):
                     elif name.string:
                         name = smart_str(name.string.strip())
 
-                    s, created = Specification.objects.get_or_create(name=name)
+                    try:
+                        s, created = Specification.objects.get_or_create(name=name)
+                    except IntegrityError:
+                        s = Specification.objects.get(name=name)
+                        s.slug = slugify(name)
+                        s.save()
                     game.specifications.add(s)
 
             ign_games_you_may_like = soup.find_all(class_='gamesYouMayLike-game')

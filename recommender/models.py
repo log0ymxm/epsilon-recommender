@@ -25,7 +25,7 @@ class Feature(models.Model):
 
 class Platform(models.Model):
     name = models.CharField(max_length=512, unique=True)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=255)
 
     class Meta:
         verbose_name = 'Video Game Platform'
@@ -53,7 +53,7 @@ class VideoGame(models.Model):
     esrb_rating_description = models.TextField(blank=True, null=True)
     features = models.ManyToManyField(Feature, blank=True, null=True)
     genre = models.CharField(max_length=255, blank=True, null=True)
-    genre_slug = models.SlugField()
+    genre_slug = models.SlugField(max_length=255)
     ign_community_rating = models.DecimalField(decimal_places=3, max_digits=6, blank=True, null=True)
     ign_community_rating_count = models.IntegerField(blank=True, null=True)
     ign_games_you_may_like = models.ManyToManyField('self', blank=True, null=True)
@@ -66,14 +66,18 @@ class VideoGame(models.Model):
     publisher_url = models.URLField(blank=True, null=True)
     release_date = models.DateField(blank=True, null=True)
     release_date_malformed = models.CharField(max_length=255, blank=True, null=True, help_text="This represents a release_date that might not be parseable into a date.")
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=255)
     specifications = models.ManyToManyField(Specification, blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
+    rating = RatingField(range=5,
+                         can_change_vote=True,
+                         allow_anonymous = True,
+                         use_cookies = True)
 
     class Meta:
         verbose_name = "Video Game"
         verbose_name_plural = "Video Games"
-        ordering = ('name',)
+        ordering = ('-name', '-ign_image', '-ign_rating')
 
     def __unicode__(self):
         return self.name
