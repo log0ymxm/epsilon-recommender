@@ -25,6 +25,7 @@ class Feature(models.Model):
 
 class Platform(models.Model):
     name = models.CharField(max_length=512, unique=True)
+    slug = models.SlugField()
 
     class Meta:
         verbose_name = 'Video Game Platform'
