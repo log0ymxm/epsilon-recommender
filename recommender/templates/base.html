@@ -34,9 +34,6 @@
 	  <li class="{% if '/search' == request.path %}active{% endif %}">
 	    <a href="{% url 'search' %}">Search</a>
 	  </li>
-	  <li class="{% if '/' == request.path %}active{% endif %}">
-	    <a href="/">Genres</a>
-	  </li>
 	  <li class="{% if '/recommendations' == request.path %}active{% endif %}">
 	    <a href="{% url 'recommendations' %}">View Recommendations</a>
 	  </li>
