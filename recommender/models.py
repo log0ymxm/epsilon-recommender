@@ -1,5 +1,4 @@
 from django.db import models
-from attributes.models import AttributeOption
 from django.contrib.auth.models import User
 from tastypie.models import create_api_key
 from recommender.vendor.djangoratings.fields import RatingField
@@ -16,7 +15,7 @@ class UserProfile(models.Model):
         return "Profile - %s" % (self.user)
 
 class Feature(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.TextField(unique=True)
 
     class Meta:
         verbose_name = 'Video Game Feature'
@@ -25,7 +24,7 @@ class Feature(models.Model):
         return self.name
 
 class Platform(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=512, unique=True)
 
     class Meta:
         verbose_name = 'Video Game Platform'
@@ -34,7 +33,7 @@ class Platform(models.Model):
         return self.name
 
 class Specification(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.TextField(unique=True)
 
     class Meta:
         verbose_name = 'Video Game Specification'
@@ -64,6 +63,7 @@ class VideoGame(models.Model):
     publisher = models.CharField(max_length=255, blank=True, null=True)
     publisher_url = models.URLField(blank=True, null=True)
     release_date = models.DateField(blank=True, null=True)
+    release_date_malformed = models.CharField(max_length=255, blank=True, null=True, help_text="This represents a release_date that might not be parseable into a date.")
     specifications = models.ManyToManyField(Specification, blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
 
@@ -83,24 +83,3 @@ class Review(models.Model):
 
     def __unicode__():
         return '%s - %s' % (self.user, self.video_game)
-
-class VideoGameAttribute(models.Model):
-    video_game = models.ForeignKey(VideoGame)
-    option = models.ForeignKey(AttributeOption)
-    value = models.TextField()
-
-    def _name(self):
-        return self.option.name
-    name = property(_name)
-
-    def _description(self):
-        return self.option.description
-    description = property(_description)
-
-    class Meta:
-        verbose_name = "Video Game Attribute"
-        verbose_name_plural = "Video Game Attributes"
-        ordering = ('option__sort_order',)
-
-    def __unicode__(self):
-        return self.option.name

@@ -32,7 +32,7 @@ class Command(BaseCommand):
                 if created:
                     self.stdout.write('New link: %s' % link.get('href'))
 
-            seconds = 10
+            seconds = 3
             self.stdout.write('Sleeping for %s seconds' % seconds)
             time.sleep(seconds)
             i += 50

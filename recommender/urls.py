@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from tastypie.api import Api
-from recommender.api import UserResource, VideoGameResource, ReviewResource, AttributeOptionResource, VideoGameAttributeResource
+from recommender.api import UserResource, VideoGameResource, ReviewResource
 from recommender import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -11,8 +11,6 @@ v1_api = Api(api_name='v1')
 v1_api.register(UserResource())
 v1_api.register(VideoGameResource())
 v1_api.register(ReviewResource())
-v1_api.register(AttributeOptionResource())
-v1_api.register(VideoGameAttributeResource())
 
 urlpatterns = patterns('',
     # Examples:

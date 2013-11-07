@@ -7,8 +7,7 @@ from tastypie.exceptions import Unauthorized
 from tastypie.authentication import Authentication
 from tastypie.http import HttpUnauthorized, HttpForbidden
 
-from attributes.models import AttributeOption
-from recommender.models import VideoGame, Review, VideoGameAttribute
+from recommender.models import *
 from django.contrib.auth.models import User
 
 class EmailApiKeyAuthentication(Authentication):
@@ -122,32 +121,35 @@ class ReviewResource(ModelResource):
         trailing_slash = False
         fields = ['comments',]
 
-class AttributeOptionResource(ModelResource):
+class FeatureResource(ModelResource):
     class Meta:
-        queryset = AttributeOption.objects.all()
-        filtering = {
-            'description': ('exact'),
-            'name': ('exact'),
-            }
-        resource_name = 'attribute_option'
+        queryset = Feature.objects.all()
+        filtering = {}
+        resource_name = 'feature'
         serializer = Serializer(formats=['jsonp', 'json'])
         authorization = DjangoAuthorization()
         authentication = EmailApiKeyAuthentication()
         trailing_slash = False
-        fields = ['description', 'name', 'validation', 'sort_order', 'error_message',]
+        fields = ['name',]
 
-class VideoGameAttributeResource(ModelResource):
-    video_game = fields.ForeignKey(VideoGameResource, 'video_game', full=True, null=True, blank=True)
-    option = fields.ForeignKey(AttributeOptionResource, 'option', full=True, null=True, blank=True)
-
+class PlatformResource(ModelResource):
     class Meta:
-        queryset = VideoGameAttribute.objects.all()
-        filtering = {
-            'value': ('exact'),
-            }
-        resource_name = 'video_game_attribute'
+        queryset = Platform.objects.all()
+        filtering = {}
+        resource_name = 'platform'
         serializer = Serializer(formats=['jsonp', 'json'])
         authorization = DjangoAuthorization()
         authentication = EmailApiKeyAuthentication()
         trailing_slash = False
-        fields = ['value',]
+        fields = ['name',]
+
+class SpecificationResource(ModelResource):
+    class Meta:
+        queryset = Specification.objects.all()
+        filtering = {}
+        resource_name = 'specification'
+        serializer = Serializer(formats=['jsonp', 'json'])
+        authorization = DjangoAuthorization()
+        authentication = EmailApiKeyAuthentication()
+        trailing_slash = False
+        fields = ['name',]
