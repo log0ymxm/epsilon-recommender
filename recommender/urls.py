@@ -16,18 +16,11 @@ v1_api.register(ReviewResource())
 urlpatterns = patterns('',
     url(r'^$', 'recommender.views.home', name='home'),
     url(r'^recommendations$', 'recommender.views.recommendations', name='recommendations'),
-
     url(r'^search$', 'recommender.views.search', name='search'),
-    # url(r'^recommender/', include('recommender.foo.urls')),
-
+    url(r'^game-detail-page$', 'recommender.views.game_detail_page', name='game_detail_page'),
     url(r'^api/', include(v1_api.urls)),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-
     url(r'^accounts/', include('registration.backends.default.urls')),
 
     url(r'rate/(?P<object_id>\d+)/(?P<score>\d+)/', AddRatingFromModel(), {
