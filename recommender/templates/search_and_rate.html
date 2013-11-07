@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block content %}
 
 <div class="container">
@@ -7,19 +8,17 @@
       <h1>Search and Rate</h1>
     </div>
   </div>
-    <form class="navbar-form navbar-left" role="search">
-  <div class="form-group">
-    <input type="text" class="form-control" placeholder="Search" float= "left">
-  </div>
-  <button type="submit" class="btn btn-default">Search</button>
-</form>
-<br/><br/><br/><br/>
+  <form class="navbar-form navbar-left" role="search">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search" float= "left">
+    </div>
+    <button type="submit" class="btn btn-default">Search</button>
+  </form>
+  <br/><br/><br/><br/>
   <div class="row">
     <div class="col-md-12">
       {% for v in video_games %}
-            <img 
-src="http://i880.photobucket.com/albums/ac9/joseyjara/gameRcommender/gta_zps760e6104.jpg" 
-border="0" width="150px" alt=" photo gta_zps760e6104.jpg"/>
+      <img src="{{v.ign_image}}" width="100">
       <h2>{{v.name}}</h2>
       <p>
         {{v.description}}
@@ -28,9 +27,5 @@ border="0" width="150px" alt=" photo gta_zps760e6104.jpg"/>
     </div>
   </div>
 </div>
-
-
-
-
 
 {% endblock %}
