@@ -6,7 +6,8 @@ from django.contrib.auth.admin import UserAdmin
 from recommender.models import *
 
 class VideoGameAdmin(admin.ModelAdmin):
-    list_display= ('name', 'ign_url', 'description',)
+    list_display= ('name', 'ign_image', 'ign_url', 'description',)
+    raw_id_fields = ('ign_games_you_may_like', 'specifications', 'features',)
     pass
 
 class ReviewAdmin(admin.ModelAdmin):
