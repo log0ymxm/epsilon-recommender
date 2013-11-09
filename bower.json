@@ -1,0 +1,20 @@
+{
+  "name": "epsilon-video-game-recommender",
+  "version": "0.0.0",
+  "homepage": "https://github.com/log0ymxm/epsilon-recommender",
+  "authors": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "angular": "~1.2.0",
+    "angular-resource": "~1.2.0"
+  }
+}
