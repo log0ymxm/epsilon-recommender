@@ -15,15 +15,15 @@
       <b><h2>Popular Titles</h2><br/>
       <div class="row">
         <div class="col-md-12">
-          {% for v in video_games %}
-          {% rating_by_request request on v.rating as vote %}
+          {% for video_game in video_games %}
+          {% rating_by_request request on video_game.rating as vote %}
           {% if forloop.counter0|divisibleby:4 %} <div class="row"> {% endif %}
             <div class="col-md-3">
-              <img src="{{v.ign_image}}" width="100">
-              <h2>{{v.name}}</h2>
+              <img src="{{video_game.ign_image}}" width="100">
+              <h2>{{video_game.name}}</h2>
               <div e-rating="5" rating-value="{{vote}}"></div>
               <p>
-                {{v.description}}
+                {{video_game.description}}
               </p>
             </div>
           {% if forloop.counter|divisibleby:4 %} </div> {% endif %}
