@@ -21,7 +21,7 @@
             <div class="col-md-3">
               <img src="{{video_game.ign_image}}" width="100">
               <h2>{{video_game.name}}</h2>
-              <div e-rating="5" rating-value="{{vote}}"></div>
+              <div e-rating="5" rating-value="{{vote}}" on-rating-change="saveVote(video_game)"></div>
               <p>
                 {{video_game.description}}
               </p>
