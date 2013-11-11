@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load ratings %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -8,17 +10,26 @@
       <h1>Search and Rate</h1>
     </div>
   </div>
-  <form class="navbar-form navbar-left" role="search">
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="Search" float= "left">
-    </div>
-    <button type="submit" class="btn btn-default">Search</button>
-  </form>
+
+
+  <form method="post" action = "/search" class="form">
+          <fieldset>
+            <legend>Search</legend>
+            {% csrf_token %}
+            {{ form | crispy }}
+
+            <div class="control-group">
+              <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+          </fieldset>
+        </form>
+
   <br/><br/><br/><br/>
   <div class="row">
     <div class="col-md-12">
 
       {% for v in video_games %}
+      {% rating_by_request request on v.rating as vote %}
       {% if forloop.counter0|divisibleby:4 %} <div class="row"> {% endif %}
         <div class="col-md-3">
     <img src="{{v.ign_image}}" width="100">
