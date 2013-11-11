@@ -9,7 +9,7 @@ def home(request):
     video_games = VideoGame.objects.filter(~Q(name='') &
                                             ~Q(description='') &
                                             Q(ign_image__isnull=False)
-                                            ).order_by('?')[:8]
+                                            ).order_by('?')[:4]
 
     return render_to_response('home.html',
                               locals(),
@@ -35,4 +35,12 @@ def search(request):
 
     return render_to_response('search.html',
                               locals(),
+                              context_instance=RequestContext(request))
+
+def genre(request, slug):
+    title = "Genre"
+    video_games = VideoGame.objects.filter(genre_slug = slug)
+
+    return render_to_response('genre.html', 
+                              locals(), 
                               context_instance=RequestContext(request))

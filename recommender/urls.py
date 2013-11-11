@@ -34,7 +34,10 @@ urlpatterns = patterns('',
         'app_label': 'recommender',
         'model': 'VideoGame',
         'field_name': 'rating',
+
     }),
+
+   url(r'^genre/(?P<slug>[\w-]+)/$', 'recommender.views.genre', name='genre'),
 
 )
 
