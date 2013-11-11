@@ -51,15 +51,7 @@ def genre(request, slug):
     return render_to_response('genre.html', 
                               locals(), 
     
-def game_detail_page(request):
-    title = "Game Detail Page"
-    
-    v = VideoGame.objects.filter(~Q(name='') &
-                                           ~Q(description=''))[0]
-   
-    return render_to_response('game_detail_page.html',
-                              locals(),
-                              context_instance=RequestContext(request))
+
     
 def game_detail_page(request):
     title = "Game Detail Page"
