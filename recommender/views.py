@@ -31,7 +31,7 @@ def search(request):
     video_games = VideoGame.objects.filter(~Q(name='') &
                                             ~Q(description='') &
                                             Q(ign_image__isnull=False)
-                                            ).order_by('?')[:5]
+                                            ).order_by('?')[:8]
 
     return render_to_response('search.html',
                               locals(),
