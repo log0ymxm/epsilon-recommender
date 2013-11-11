@@ -88,7 +88,7 @@ class UserResource(ModelResource):
         authorization = DjangoAuthorization()
         authentication = EmailApiKeyAuthentication()
         trailing_slash = False
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username']
 
 class VideoGameResource(ModelResource):
     class Meta:
