@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from tastypie.api import Api
 from recommender.api import UserResource, VideoGameResource, ReviewResource
 from recommender import settings
+from recommender.vendor.djangoratings.views import AddRatingFromModel
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -13,7 +14,6 @@ v1_api.register(VideoGameResource())
 v1_api.register(ReviewResource())
 
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', 'recommender.views.home', name='home'),
     url(r'^recommendations$', 'recommender.views.recommendations', name='recommendations'),
 
@@ -29,6 +29,13 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^accounts/', include('registration.backends.default.urls')),
+
+    url(r'rate/(?P<object_id>\d+)/(?P<score>\d+)/', AddRatingFromModel(), {
+        'app_label': 'recommender',
+        'model': 'VideoGame',
+        'field_name': 'rating',
+    }),
+
 )
 
 if settings.PRODUCTION:

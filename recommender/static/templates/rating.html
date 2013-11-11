@@ -1,0 +1,7 @@
+<div class="rating" ng-mouseleave="resetHover()">
+  <i ng-repeat="star in stars"
+     class="glyphicon"
+     ng-class="{'glyphicon-star-empty': star.empty, 'glyphicon-star': !star.empty}"
+     ng-click="toggle($index)"
+     ng-mouseenter="hover($index)"></i>
+</div>
