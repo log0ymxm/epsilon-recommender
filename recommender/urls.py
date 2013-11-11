@@ -14,6 +14,7 @@ v1_api.register(VideoGameResource())
 v1_api.register(ReviewResource())
 
 urlpatterns = patterns('',
+
     url(r'^$', 'recommender.views.home', name='home'),
     url(r'^recommendations$', 'recommender.views.recommendations', name='recommendations'),
     url(r'^search$', 'recommender.views.search', name='search'),
