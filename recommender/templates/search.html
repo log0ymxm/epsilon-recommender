@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load ratings %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -11,36 +10,32 @@
     </div>
   </div>
 
+  <div class="well">
+    <form method="post" action = "/search" class="form">
+      <fieldset>
+        <legend>Search</legend>
+        {% csrf_token %}
+        {{ form | crispy }}
 
-  <form method="post" action = "/search" class="form">
-          <fieldset>
-            <legend>Search</legend>
-            {% csrf_token %}
-            {{ form | crispy }}
-
-            <div class="control-group">
-              <input type="submit" value="Search" class="btn btn-default" />
-            </div>
-          </fieldset>
-        </form>
+        <div class="control-group">
+          <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+      </fieldset>
+    </form>
+  </div>
 
   <br/><br/><br/><br/>
+
   <div class="row">
     <div class="col-md-12">
 
       {% for v in video_games %}
-      {% rating_by_request request on v.rating as vote %}
       {% if forloop.counter0|divisibleby:4 %} <div class="row"> {% endif %}
         <div class="col-md-3">
-    <img src="{{v.ign_image}}" width="100">
-          <h2>{{v.name}}</h2>
-           <div e-rating="5" rating-value="{{vote}}"></div>
-          <p>
-      {{v.description}}
-          </p>
+          {% include 'partials/video_game_small.html' with video_game=v %}
         </div>
         {% if forloop.counter|divisibleby:4 %} </div> {% endif %}
-        
+
       {% endfor %}
 
     </div>

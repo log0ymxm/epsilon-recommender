@@ -1,0 +1,13 @@
+{% load ratings %}
+
+{% rating_by_request request on video_game.rating as vote %}
+
+<img src="{{video_game.ign_image}}" width="100">
+<h2>{{video_game.name}}</h2>
+<angular-ratings rating="{{vote}}"
+                 notify-url="/rate"
+                 notify-id="{{video_game.id}}"
+                 csrf="{{csrf_token}}"></angular-ratings>
+<p>
+  {{video_game.description}}
+</p>
