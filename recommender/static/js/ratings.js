@@ -15,7 +15,6 @@ angular.module('ratings').directive("angularRatings", function() {
         //transclude: true,
         templateUrl: '/static/templates/rating.html',
         controller: function($scope, $attrs, $http) {
-            console.log('--- controller', $scope, $attrs);
             $scope.over = 0;
             $scope.setRating = function(rating) {
                 $scope.rating = rating;
@@ -29,9 +28,6 @@ angular.module('ratings').directive("angularRatings", function() {
                             'X-CSRFToken': $attrs.csrf
                         }
                     }).error(function(data) {
-                        if (typeof data === 'string') {
-                            console.log(data);
-                        }
                         return $scope.rating = 0;
                     });
                 }
