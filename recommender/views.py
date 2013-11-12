@@ -26,11 +26,11 @@ def recommendations(request):
     return render_to_response('recommendations.html',
                               locals(),
                               context_instance=RequestContext(request))
-    
+
 def search(request):
     title = "Search"
 
-    
+
     if request.method == 'POST': # If the form has been submitted...
         form = SearchForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
@@ -48,18 +48,16 @@ def genre(request, slug):
     title = "Genre"
     video_games = VideoGame.objects.filter(genre_slug = slug)
 
-    return render_to_response('genre.html', 
-                              locals(), 
-    
+    return render_to_response('genre.html',
+                              locals(),
+                              context_instance=RequestContext(request))
 
-    
 def game_detail_page(request):
     title = "Game Detail Page"
-    
+
     v = VideoGame.objects.filter(~Q(name='') &
                                            ~Q(description=''))[0]
-   
+
     return render_to_response('game_detail_page.html',
                               locals(),
-
                               context_instance=RequestContext(request))
