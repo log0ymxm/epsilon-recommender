@@ -3,7 +3,11 @@
 {% rating_by_request request on video_game.rating as vote %}
 
 <img src="{{video_game.ign_image}}" width="100">
-<h2>{{video_game.name}}</h2>
+<h2>
+  <a href="{% url 'game_detail_page' %}">
+    {{video_game.name}}
+  </a>
+</h2>
 <angular-ratings rating="{{vote}}"
                  notify-url="/rate"
                  notify-id="{{video_game.id}}"
