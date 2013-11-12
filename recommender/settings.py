@@ -141,10 +141,10 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
     'django_extensions',
-    #'recommender.vendor.voting',
     'attributes',
     'registration',
     'crispy_forms',
+    'django_select2',
 
     'recommends',
     'recommends.storages.djangoorm',
@@ -211,6 +211,8 @@ LOGIN_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 RATINGS_VOTES_PER_IP = 3
+
+AUTO_RENDER_SELECT2_STATICS = False
 
 PRODUCTION = bool(os.environ.get('ONFRST_PRODUCTION', False))
 
