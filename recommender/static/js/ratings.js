@@ -7,7 +7,7 @@ angular.module('ratings').directive("angularRatings", function() {
     return {
         restrict: 'E',
         scope: {
-            rating: '=rating',
+            rating: '@rating',
             notifyId: '=notifyId',
             csrf: '=csrf'
         },
