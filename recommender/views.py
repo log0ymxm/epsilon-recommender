@@ -29,7 +29,17 @@ def search(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            video_games = VideoGame.objects.filter(name  = form.cleaned_data['title'])
+            video_games = VideoGame.objects.all()
+            if form.cleaned_data['title']:
+                video_games = video_games.filter(name__icontains=form.cleaned_data['title'])
+            if form.cleaned_data['release_date']:
+                video_games = video_games.filter(release_date__icontains=form.cleaned_data['release_date'])
+            if form.cleaned_data['platform']:
+                video_games = video_games.filter(platforms=form.cleaned_data['platform'])
+            if form.cleaned_data['genre']:
+                video_games = video_games.filter(genre__icontains=form.cleaned_data['genre'])
+
+            video_games = video_games[:20]
     else:
         form = SearchForm()
         video_games = None
