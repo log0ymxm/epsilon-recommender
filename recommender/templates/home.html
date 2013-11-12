@@ -15,7 +15,7 @@
       <b><h2>Popular Titles</h2><br/>
       <div class="row">
         <div class="col-md-12">
-          {% for video_game in video_games %}
+          {% for video_game in popular_titles %}
           {% rating_by_request request on video_game.rating as vote %}
           {% if forloop.counter0|divisibleby:4 %} <div class="row"> {% endif %}
             <div class="col-md-3">
@@ -43,7 +43,7 @@
       <b><h2>New Titles</h2><br/>
       <div class="row">
         <div class="col-md-12">
-          {% for v in video_games %}
+          {% for v in new_titles %}
           {% rating_by_request request on v.rating as vote %}
           {% if forloop.counter0|divisibleby:4 %} <div class="row"> {% endif %}
             <div class="col-md-3">

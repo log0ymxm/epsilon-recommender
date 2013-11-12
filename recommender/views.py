@@ -7,10 +7,17 @@ from recommender.models import VideoGame
 
 def home(request):
     title = "Home"
-    video_games = VideoGame.objects.filter(~Q(name='') &
-                                            ~Q(description='') &
-                                            Q(ign_image__isnull=False)
-                                            ).order_by('?')[:4]
+
+    popular_titles = VideoGame.objects.filter(~Q(name='') &
+                                               ~Q(description='') &
+                                               Q(ign_image__isnull=False)
+                                               ).order_by('-rating_score')[:4]
+
+    new_titles = VideoGame.objects.filter(~Q(name='') &
+                                           ~Q(description='') &
+                                           Q(ign_image__isnull=False)
+                                           ).order_by('-release_date')[:4]
+
 
     return render_to_response('home.html',
                               locals(),
