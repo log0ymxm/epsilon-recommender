@@ -3,4 +3,3 @@ venv
 *.log
 staticfiles
 *~
-recommender/static/components
