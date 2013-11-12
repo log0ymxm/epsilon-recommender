@@ -7,17 +7,8 @@ from recommender.models import VideoGame
 
 def home(request):
     title = "Home"
-
-    popular_titles = VideoGame.objects.filter(~Q(name='') &
-                                               ~Q(description='') &
-                                               Q(ign_image__isnull=False)
-                                               ).order_by('-rating_score')[:4]
-
-    new_titles = VideoGame.objects.filter(~Q(name='') &
-                                           ~Q(description='') &
-                                           Q(ign_image__isnull=False)
-                                           ).order_by('-release_date')[:4]
-
+    popular_titles = VideoGame.objects.order_by('-rating_score')[:4]
+    new_titles = VideoGame.objects.order_by('-release_date')[:4]
 
     return render_to_response('home.html',
                               locals(),
@@ -25,10 +16,7 @@ def home(request):
 
 def recommendations(request):
     title = "Recommendations"
-    video_games = VideoGame.objects.filter(~Q(name='') &
-                                            ~Q(description='') &
-                                            Q(ign_image__isnull=False)
-                                            ).order_by('?')[:8]
+    video_games = VideoGame.objects.all().order_by('?')[:8]
 
     return render_to_response('recommendations.html',
                               locals(),
@@ -62,7 +50,7 @@ def genre(request, slug):
 def game_detail_page(request):
     title = "Game Detail Page"
 
-    v = VideoGame.objects.filter(~Q(name='') & ~Q(description=''))[0]
+    v = VideoGame.objects.all()[0]
 
     return render_to_response('game_detail_page.html',
                               locals(),

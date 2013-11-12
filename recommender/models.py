@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from tastypie.models import create_api_key
 from recommender.vendor.djangoratings.fields import RatingField
@@ -42,7 +43,17 @@ class Specification(models.Model):
     def __unicode__(self):
         return self.name
 
+class VideoGameRankingManager(models.Manager):
+    def get_query_set(self):
+        return super(VideoGameRankingManager, self).get_query_set().filter(~Q(name='') &
+                                                                           ~Q(description='') &
+                                                                           Q(ign_image__isnull=False))
+
 class VideoGame(models.Model):
+    # Set VideoGame Manager
+    objects = VideoGameRankingManager()
+
+    # Fields
     name = models.CharField(max_length=500)
     description = models.TextField()
     ign_url = models.CharField(max_length=500, unique=True, help_text="The relative url for this game at http://www.ign.com")
