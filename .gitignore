@@ -2,4 +2,5 @@ venv
 *.pyc
 *.log
 staticfiles
-
+*~
+recommender/static/components
