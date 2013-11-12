@@ -38,12 +38,12 @@ def search(request):
     title = "Search"
 
 
-    if request.method == 'POST': # If the form has been submitted...
-        form = SearchForm(request.POST) # A form bound to the POST data
-        if form.is_valid(): # All validation rules pass
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
             video_games = VideoGame.objects.filter(name  = form.cleaned_data['title'])
     else:
-        form = SearchForm() # An unbound form
+        form = SearchForm()
         video_games = None
 
 
@@ -62,8 +62,7 @@ def genre(request, slug):
 def game_detail_page(request):
     title = "Game Detail Page"
 
-    v = VideoGame.objects.filter(~Q(name='') &
-                                           ~Q(description=''))[0]
+    v = VideoGame.objects.filter(~Q(name='') & ~Q(description=''))[0]
 
     return render_to_response('game_detail_page.html',
                               locals(),
