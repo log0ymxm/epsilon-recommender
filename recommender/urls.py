@@ -24,11 +24,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.default.urls')),
 
-    url(r'rate/(?P<object_id>\d+)/(?P<score>\d+)/', AddRatingFromModel(), {
+    url(r'rate/(?P<object_id>\d+)/(?P<score>\d+)', AddRatingFromModel(), {
         'app_label': 'recommender',
-        'model': 'VideoGame',
+        'model': 'videogame',
         'field_name': 'rating',
-
     }),
 
    url(r'^genre/(?P<slug>[\w-]+)/$', 'recommender.views.genre', name='genre'),
