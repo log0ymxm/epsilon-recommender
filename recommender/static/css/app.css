@@ -1,0 +1,14 @@
+.select2-container.form-control, .select2-container-multi.form-control {
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+.select2-container.form-control ul.select2-choices, .select2-container-multi.form-control ul.select2-choices {
+    padding: 8px;
+    height: 34px!important;
+}
+
+.select2-container.form-control ul.select2-choices li, .select2-container-multi.form-control ul.select2-choices li {
+    top: 5px;
+}

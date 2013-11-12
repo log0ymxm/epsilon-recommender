@@ -30,8 +30,8 @@ urlpatterns = patterns('',
         'field_name': 'rating',
     }),
 
-   url(r'^genre/(?P<slug>[\w-]+)/$', 'recommender.views.genre', name='genre'),
-
+    url(r'^genre/(?P<slug>[\w-]+)/$', 'recommender.views.genre', name='genre'),
+    url(r'^select2/', include('django_select2.urls')),
 )
 
 if settings.PRODUCTION:
