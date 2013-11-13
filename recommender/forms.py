@@ -5,7 +5,7 @@ from django_select2 import *
 class SearchForm(forms.Form):
     title = forms.CharField(max_length=100, required = False)
     release_date = forms.DateField(required = False)
-    platform = ModelSelect2MultipleField(queryset=Platform.objects, required=False)
+    platform = ModelSelect2Field(queryset=Platform.objects, required=False)
     genre = forms.CharField(max_length=100, required = False)
 
 
