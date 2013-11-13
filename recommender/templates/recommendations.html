@@ -1,6 +1,11 @@
 {% extends "base.html" %}
+<<<<<<< HEAD
+{% load ratings %}
+=======
+>>>>>>> 06084f05fea9fe173c9f349a3c2b6377ac8d85a5
 
 {% block content %}
+
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -10,14 +15,36 @@
   <br/><br/><br/>
   <div class="row">
     <div class="col-md-12">
+<<<<<<< HEAD
+      <div class = "row">
+	<div class = "colr-md-12">
+
+=======
+>>>>>>> 06084f05fea9fe173c9f349a3c2b6377ac8d85a5
       {% for v in video_games %}
+      {% rating_by_request request on v.rating as vote %}
       {% if forloop.counter0|divisibleby:4 %} <div class="row"> {% endif %}
         <div class="col-md-3">
+<<<<<<< HEAD
+	  <img src="{{v.ign_image}}" width="100">
+          <h2>{{v.name}}</h2>
+	  <div e-rating="5" rating-value="{{vote}}"></div>
+          <p>
+	    {{v.description}}
+          </p>
+        </div>
+        {% if forloop.counter|divisibleby:4 %} </div> {% endif %}
+      {% endfor %}
+      </div>
+	</div>
+=======
           {% include 'partials/video_game_small.html' with video_game=v %}
         </div>
         {% if forloop.counter|divisibleby:4 %} </div> {% endif %}
       {% endfor %}
+>>>>>>> 06084f05fea9fe173c9f349a3c2b6377ac8d85a5
     </div>
   </div>
 </div>
+
 {% endblock %}>

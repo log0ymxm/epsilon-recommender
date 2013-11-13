@@ -8,7 +8,7 @@ from recommender.vendor.djangoratings.models import Vote
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Sum, Count
 import numpy as np
-from recommender.inference import intervals
+from recommender.algorithms.rating_inference import intervals
 
 # Ensure that api keys are created on user creation
 models.signals.post_save.connect(create_api_key, sender=User)
