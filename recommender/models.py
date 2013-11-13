@@ -61,22 +61,25 @@ class VideoGameRankingManager(models.Manager):
         video_game_type = ContentType.objects.get(app_label="recommender", model="videogame")
         votes = Vote.objects.filter(content_type=video_game_type).values('object_id').annotate(S=Sum('score'), N=Count('object_id')).values_list('S', 'N', 'object_id')
 
-        r = np.core.records.fromrecords(votes, names=['S', 'N', 'object_id'])
+        if votes:
+            r = np.core.records.fromrecords(votes, names=['S', 'N', 'object_id'])
 
-        # Approximate lower bounds
-        posterior_mean, std_err  = intervals(r.S,r.N)
-        lb = posterior_mean - std_err
+            # Approximate lower bounds
+            posterior_mean, std_err  = intervals(r.S,r.N)
+            lb = posterior_mean - std_err
 
-        order = np.argsort( -lb )
-        ordered_objects = []
-        object_ids = r.object_id
-        for i in order[:limit]:
-            ordered_objects.append( object_ids[i] )
+            order = np.argsort( -lb )
+            ordered_objects = []
+            object_ids = r.object_id
+            for i in order[:limit]:
+                ordered_objects.append( object_ids[i] )
 
-        objects = VideoGame.objects.in_bulk(ordered_objects)
-        sorted_objects = [objects[id] for id in ordered_objects]
+            objects = VideoGame.objects.in_bulk(ordered_objects)
+            sorted_objects = [objects[id] for id in ordered_objects]
 
-        return sorted_objects
+            return sorted_objects
+        else:
+            return VideoGame.ranked.order_by('-rating_votes')[:limit]
 
 class VideoGame(models.Model):
     # Set VideoGame Managers
