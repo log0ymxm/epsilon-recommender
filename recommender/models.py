@@ -50,7 +50,8 @@ class VideoGameRankingManager(models.Manager):
                                                                            Q(ign_image__isnull=False))
 
 class VideoGame(models.Model):
-    # Set VideoGame Manager
+    # Set VideoGame Managers
+    objects = models.Manager()
     ranked = VideoGameRankingManager()
 
     # Fields
