@@ -3,6 +3,15 @@ from django.contrib.auth.models import User
 from tastypie.models import create_api_key
 from recommender.vendor.djangoratings.fields import RatingField
 
+<<<<<<< HEAD
+=======
+from recommender.vendor.djangoratings.models import Vote
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import Sum, Count
+import numpy as np
+from recommender.algorithms.rating_inference import intervals
+
+>>>>>>> Move file for organization purposes
 # Ensure that api keys are created on user creation
 models.signals.post_save.connect(create_api_key, sender=User)
 
