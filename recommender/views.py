@@ -7,7 +7,7 @@ from recommender.models import VideoGame
 
 def home(request):
     title = "Home"
-    popular_titles = VideoGame.ranked.order_by('-rating_score')[:4]
+    popular_titles = VideoGame.ranked.smart_rating_order(limit=4)
     new_titles = VideoGame.ranked.order_by('-release_date')[:4]
 
     return render_to_response('home.html',
