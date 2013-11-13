@@ -51,18 +51,20 @@ class Command(BaseCommand):
             game.ign_image = soup.find(attrs={'property': 'og:image'}).get('content')
 
             platforms = soup.find(class_="contentPlatformsText").find_all('span')
-            for i in range(len(platforms)):
-                platform = platforms[i].a
-                if platform:
-                    platform = smart_str(platform.string)
-                    try:
-                        p, created = Platform.objects.get_or_create(name=platform
-                                                                    ,slug=slugify(platform))
-                    except IntegrityError:
-                        p = Platform.objects.get(name=platform)
-                        p.slug = slugify(platform)
-                        p.save()
-                    game.platforms.add(p)
+            
+                
+            if platforms[0]:
+                platform = platforms[0].a
+                platform = smart_str(platform.string)
+                print 'this is the platform', platform
+                try:
+                    p, created = Platform.objects.get_or_create(name=platform
+                                                                ,slug=slugify(platform))
+                except IntegrityError:
+                    p = Platform.objects.get(name=platform)
+                    p.slug = slugify(platform)
+                    p.save()
+                game.platforms.add(p)
 
             release_date = soup.find(class_="releaseDate")
             if release_date:
