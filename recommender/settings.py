@@ -141,10 +141,10 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
     'django_extensions',
-    #'recommender.vendor.voting',
     'attributes',
     'registration',
     'crispy_forms',
+    'django_select2',
 
     'recommends',
     'recommends.storages.djangoorm',
@@ -181,6 +181,10 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        },
     }
 }
 
@@ -208,15 +212,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 RATINGS_VOTES_PER_IP = 3
 
+AUTO_RENDER_SELECT2_STATICS = False
+
 PRODUCTION = bool(os.environ.get('ONFRST_PRODUCTION', False))
 
 if PRODUCTION:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
-    # Parse database configuration from $DATABASE_URL
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.config()
 
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

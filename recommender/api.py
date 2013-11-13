@@ -43,11 +43,6 @@ class EmailApiKeyAuthentication(Authentication):
         if not api_key:
             return self._unauthorized()
 
-        #try:
-        #    user = RBLUser.objects.get(=auth)
-        #except (RBLUser.DoesNotExist, RBLUser.MultipleObjectsReturned):
-        #    return self._unauthorized()
-
         (user, key_auth_check) = self.get_key(api_key)
 
         if not self.check_active(user):
@@ -88,11 +83,11 @@ class UserResource(ModelResource):
         authorization = DjangoAuthorization()
         authentication = EmailApiKeyAuthentication()
         trailing_slash = False
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username']
 
 class VideoGameResource(ModelResource):
     class Meta:
-        queryset = VideoGame.objects.all()
+        queryset = VideoGame.ranked.all()
         filtering = {
             'name': ('exact'),
             'description': ('exact'),

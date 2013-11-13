@@ -1,7 +1,14 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from tastypie.models import create_api_key
 from recommender.vendor.djangoratings.fields import RatingField
+
+from recommender.vendor.djangoratings.models import Vote
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import Sum, Count
+import numpy as np
+from recommender.inference import intervals
 
 # Ensure that api keys are created on user creation
 models.signals.post_save.connect(create_api_key, sender=User)
@@ -42,7 +49,41 @@ class Specification(models.Model):
     def __unicode__(self):
         return self.name
 
+class VideoGameRankingManager(models.Manager):
+    def get_query_set(self):
+        return super(VideoGameRankingManager, self).get_query_set().filter(~Q(name='') &
+                                                                           ~Q(description='') &
+                                                                           Q(ign_image__isnull=False))
+
+
+
+    def smart_rating_order(self, limit=10):
+        video_game_type = ContentType.objects.get(app_label="recommender", model="videogame")
+        votes = Vote.objects.filter(content_type=video_game_type).values('object_id').annotate(S=Sum('score'), N=Count('object_id')).values_list('S', 'N', 'object_id')
+
+        r = np.core.records.fromrecords(votes, names=['S', 'N', 'object_id'])
+
+        # Approximate lower bounds
+        posterior_mean, std_err  = intervals(r.S,r.N)
+        lb = posterior_mean - std_err
+
+        order = np.argsort( -lb )
+        ordered_objects = []
+        object_ids = r.object_id
+        for i in order[:limit]:
+            ordered_objects.append( object_ids[i] )
+
+        objects = VideoGame.objects.in_bulk(ordered_objects)
+        sorted_objects = [objects[id] for id in ordered_objects]
+
+        return sorted_objects
+
 class VideoGame(models.Model):
+    # Set VideoGame Managers
+    objects = models.Manager()
+    ranked = VideoGameRankingManager()
+
+    # Fields
     name = models.CharField(max_length=500)
     description = models.TextField()
     ign_url = models.CharField(max_length=500, unique=True, help_text="The relative url for this game at http://www.ign.com")
