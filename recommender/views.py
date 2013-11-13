@@ -7,8 +7,8 @@ from recommender.models import VideoGame
 
 def home(request):
     title = "Home"
-    popular_titles = VideoGame.objects.order_by('-rating_score')[:4]
-    new_titles = VideoGame.objects.order_by('-release_date')[:4]
+    popular_titles = VideoGame.ranked.order_by('-rating_score')[:4]
+    new_titles = VideoGame.ranked.order_by('-release_date')[:4]
 
     return render_to_response('home.html',
                               locals(),
@@ -16,7 +16,7 @@ def home(request):
 
 def recommendations(request):
     title = "Recommendations"
-    video_games = VideoGame.objects.all().order_by('?')[:8]
+    video_games = VideoGame.ranked.all().order_by('?')[:8]
 
     return render_to_response('recommendations.html',
                               locals(),
@@ -29,7 +29,7 @@ def search(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
-            video_games = VideoGame.objects.all()
+            video_games = VideoGame.ranked.all()
             if form.cleaned_data['title']:
                 video_games = video_games.filter(name__icontains=form.cleaned_data['title'])
             if form.cleaned_data['release_date']:
@@ -51,7 +51,7 @@ def search(request):
 
 def genre(request, slug):
     title = "Genre"
-    video_games = VideoGame.objects.filter(genre_slug = slug)
+    video_games = VideoGame.ranked.filter(genre_slug = slug)
 
     return render_to_response('genre.html',
                               locals(),
@@ -60,7 +60,7 @@ def genre(request, slug):
 def game_detail_page(request):
     title = "Game Detail Page"
 
-    v = VideoGame.objects.all()[0]
+    v = VideoGame.ranked.all()[0]
 
     return render_to_response('game_detail_page.html',
                               locals(),

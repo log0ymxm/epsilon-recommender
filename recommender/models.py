@@ -51,7 +51,7 @@ class VideoGameRankingManager(models.Manager):
 
 class VideoGame(models.Model):
     # Set VideoGame Manager
-    objects = VideoGameRankingManager()
+    ranked = VideoGameRankingManager()
 
     # Fields
     name = models.CharField(max_length=500)

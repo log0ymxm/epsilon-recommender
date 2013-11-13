@@ -87,7 +87,7 @@ class UserResource(ModelResource):
 
 class VideoGameResource(ModelResource):
     class Meta:
-        queryset = VideoGame.objects.all()
+        queryset = VideoGame.ranked.all()
         filtering = {
             'name': ('exact'),
             'description': ('exact'),
