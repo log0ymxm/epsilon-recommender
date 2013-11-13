@@ -1,7 +1,17 @@
-<div class="rating" ng-mouseleave="resetHover()">
-  <i ng-repeat="star in stars"
-     class="glyphicon"
-     ng-class="{'glyphicon-star-empty': star.empty, 'glyphicon-star': !star.empty}"
-     ng-click="toggle($index)"
-     ng-mouseenter="hover($index)"></i>
+<div class="angular-ratings">
+  <i class="glyphicon"
+     ng-class="{'glyphicon-star':(rating>0||over>0),'glyphicon-star-empty':(rating<=0&&over<=0)}"
+     title="1"></i>
+  <i class="glyphicon"
+     ng-class="{'glyphicon-star':(rating>1||over>1),'glyphicon-star-empty':(rating<=1&&over<=1)}"
+     title="2"></i>
+  <i class="glyphicon"
+     ng-class="{'glyphicon-star':(rating>2||over>2),'glyphicon-star-empty':(rating<=2&&over<=2)}"
+     title="3"></i>
+  <i class="glyphicon"
+     ng-class="{'glyphicon-star':(rating>3||over>3),'glyphicon-star-empty':(rating<=3&&over<=3)}"
+     title="4"></i>
+  <i class="glyphicon"
+     ng-class="{'glyphicon-star':(rating>4||over>4),'glyphicon-star-empty':(rating<=4&&over<=4)}"
+     title="5"></i>
 </div>

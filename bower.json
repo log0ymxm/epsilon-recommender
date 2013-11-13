@@ -1,0 +1,22 @@
+{
+  "name": "epsilon-video-game-recommender",
+  "version": "0.0.0",
+  "homepage": "https://github.com/log0ymxm/epsilon-recommender",
+  "authors": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "angular": "1.2.0-rc.3",
+    "angular-resource": "1.2.0-rc.3",
+    "bootstrap": "~3.0.2",
+    "select2-bootstrap-css": "https://github.com/fk/select2-bootstrap-css.git#~1.2.0"
+  }
+}
