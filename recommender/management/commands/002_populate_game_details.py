@@ -144,8 +144,15 @@ class Command(BaseCommand):
             if len(gameInfo_list) > 1:
                 genre = gameInfo_list[1]
                 if genre:
-                    game.genre = genre.find_all('div')[0].a.string.strip()
-                    game.genre_slug = slugify(game.genre)
+                    genre = genre.find_all('div')[0].a.string.strip()
+                    try:
+                        g, created = Genre.objects.get_or_create(name=genre
+                                                                    ,slug=slugify(genre))
+                    except IntegrityError:
+                        g = Genre.objects.get(name=genre)
+                        g.slug = slugify(genre)
+                        g.save()
+                    game.genre.add(g)
 
             if len(gameInfo_list) > 1:
                 publisher = gameInfo_list[1].find_all('div')

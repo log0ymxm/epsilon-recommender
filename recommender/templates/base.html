@@ -50,6 +50,9 @@
 	  <li class="{% if '/search' == request.path %}active{% endif %}">
 	    <a href="{% url 'search' %}">Search</a>
 	  </li>
+      <li class="{% if '/genre' == request.path %}active{% endif %}">
+      <a href="{% url 'genre' %}">Genre</a>
+    </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}

@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^recommendations$', 'recommender.views.recommendations', name='recommendations'),
     url(r'^search$', 'recommender.views.search', name='search'),
     url(r'^game-detail-page$', 'recommender.views.game_detail_page', name='game_detail_page'),
+    url(r'^genre$', 'recommender.views.genre', name='genre'),
     url(r'^api/', include(v1_api.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
@@ -30,7 +31,7 @@ urlpatterns = patterns('',
         'field_name': 'rating',
     }),
 
-    url(r'^genre/(?P<slug>[\w-]+)/$', 'recommender.views.genre', name='genre'),
+    url(r'^genre/(?P<slug>[\w-]+)/$', 'recommender.views.genre_detail', name='genre'),
     url(r'^select2/', include('django_select2.urls')),
 )
 

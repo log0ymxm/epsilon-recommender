@@ -49,9 +49,17 @@ def search(request):
                               locals(),
                               context_instance=RequestContext(request))
 
-def genre(request, slug):
+def genre_detail(request, slug):
     title = "Genre"
     video_games = VideoGame.ranked.filter(genre_slug = slug)
+
+    return render_to_response('genre_detail.html',
+                              locals(),
+                              context_instance=RequestContext(request))
+
+def genre(request):
+    title = "Genre"
+    video_games = VideoGame.ranked.smart_rating_order(limit=4)
 
     return render_to_response('genre.html',
                               locals(),
@@ -65,3 +73,4 @@ def game_detail_page(request):
     return render_to_response('game_detail_page.html',
                               locals(),
                               context_instance=RequestContext(request))
+
