@@ -57,6 +57,7 @@ def genre(request, slug):
                               locals(),
                               context_instance=RequestContext(request))
 
+
 def game_detail_page(request):
     title = "Game Detail Page"
 
@@ -65,3 +66,4 @@ def game_detail_page(request):
     return render_to_response('game_detail_page.html',
                               locals(),
                               context_instance=RequestContext(request))
+
