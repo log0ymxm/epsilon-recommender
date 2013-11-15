@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from recommends.providers import recommendation_registry, RecommendationProvider
-from recommends.algorithms.ghetto import GhettoAlgorithm
 
 from recommender.models import VideoGame
 from recommender.vendor.djangoratings.models import Vote
+from recommender.algorithms.ghetto import GhettoAlgorithm
 
 class VideoGameRecommendationProvider(RecommendationProvider):
     algorithm = GhettoAlgorithm()
