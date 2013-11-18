@@ -11,6 +11,7 @@ class VideoGameRankingManager(models.Manager):
         return super(VideoGameRankingManager, self).get_query_set().filter(~Q(name='') &
                                                                            ~Q(description='') &
                                                                            ~Q(slug='') &
+                                                                           ~Q(ign_image='http://oystatic.ignimgs.com/src/core/img/widgets/global/page/ign-logo-100x100.jpg') &
                                                                            Q(ign_image__isnull=False))
 
 
