@@ -7,7 +7,7 @@ import urllib2
 import time
 import datetime
 
-from recommender.models import VideoGame, Platform, Feature, Specification
+from recommender.models import VideoGame, Platform, Feature, Specification, Genre, Company
 
 ign_base_url = 'http://www.ign.com%s'
 
@@ -51,8 +51,8 @@ class Command(BaseCommand):
             game.ign_image = soup.find(attrs={'property': 'og:image'}).get('content')
 
             platforms = soup.find(class_="contentPlatformsText").find_all('span')
-            
-                
+
+
             if platforms[0]:
                 platform = platforms[0].a
                 platform = smart_str(platform.string)
@@ -152,31 +152,47 @@ class Command(BaseCommand):
                         g = Genre.objects.get(name=genre)
                         g.slug = slugify(genre)
                         g.save()
-                    game.genre.add(g)
+                    game.genre = g
 
             if len(gameInfo_list) > 1:
                 publisher = gameInfo_list[1].find_all('div')
                 if len(publisher) > 1:
                     publisher = publisher[1].a.string.strip()
-                    game.publisher = publisher
+                    try:
+                        p, created = Company.objects.get_or_create(name=publisher, slug=slugify(publisher))
+                    except IntegrityError:
+                        p = Company.objects.get(name=publisher)
+                        p.slug = slugify(publisher)
+                        p.save()
+                    game.publisher.add(p)
 
             if len(gameInfo_list) > 1:
                 publisher_url = gameInfo_list[1].find_all('div')
                 if len(publisher_url) > 1:
                     publisher_url = publisher_url[1].a.get('href')
-                    game.publisher_url = publisher_url
+                    if p:
+                      p.url = publisher_url
+                      p.save()
 
             if len(gameInfo_list) > 1:
                 developer = gameInfo_list[1].find_all('div')
                 if len(developer) > 2:
                     developer = developer[2].a.string.strip()
-                    game.developer = developer
+                    try:
+                        d, created = Company.objects.get_or_create(name=developer, slug=slugify(developer))
+                    except IntegrityError:
+                        d = Company.objects.get(name=developer)
+                        d.slug = slugify(developer)
+                        d.save()
+                    game.developer.add(d)
 
             if len(gameInfo_list) > 1:
                 developer_url = gameInfo_list[1].find_all('div')
                 if len(developer_url) > 2:
                     developer_url = developer_url[2].a.get('href')
-                    game.developer_url
+                    if d:
+                      d.url = developer_url
+                      d.save()
 
             features = soup.find(class_="featureList")
             if features:

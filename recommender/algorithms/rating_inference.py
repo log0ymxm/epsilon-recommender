@@ -1,4 +1,5 @@
 import numpy as np
+import pymc as pm
 
 # For ordering our video games, we want to estimate the "true" rating
 # of a video game rather than the observed rating we have in our
@@ -28,3 +29,18 @@ def intervals(vote_sum, number_of_votes):
     mu = a/(a+b)
     std_err = 1.65*np.sqrt( (a*b)/( (a+b)**2*(a+b+1.) ) )
     return ( mu, std_err )
+
+def posterior_upvote_ratio( vote_sum, number_of_votes, samples = 20000):
+    """
+    This function accepts the number of upvotes and downvotes a particular comment recieved,
+    and the number of posterior samples to return to the user. Assumes a uniform prior.
+    """
+    N = upvotes + downvotes
+    upvote_ratio = pm.Uniform( "upvote_ratio", 0, 1 )
+    #observations = pm.Binomial( "obs",  N, upvote_ratio, value = upvotes, observed = True)
+    observations = pm.Binomial( "obs",  number_of_votes, upvote_ratio, value = votes_sum, observed = True)
+    #do the fitting; first do a MAP as it is cheap and useful.
+    map_ = pm.MAP([upvote_ratio, observations ]).fit()
+    mcmc = pm.MCMC([upvote_ratio, observations ])
+    mcmc.sample(samples, samples/4)
+    return mcmc.trace("upvote_ratio")[:]

@@ -2,7 +2,7 @@ from collections import defaultdict
 import math
 from recommends.similarities import sim_distance
 from recommends.converters import convert_vote_list_to_userprefs, convert_vote_list_to_itemprefs
-from .base import BaseAlgorithm
+from recommend.algorithms.ghetto import BaseAlgorithm
 
 
 class GhettoAlgorithm(BaseAlgorithm):

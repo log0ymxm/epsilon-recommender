@@ -4,10 +4,10 @@ from recommends.providers import recommendation_registry, RecommendationProvider
 
 from recommender.models import VideoGame
 from recommender.vendor.djangoratings.models import Vote
-from recommender.algorithms.ghetto import GhettoAlgorithm
+from recommender.algorithms.probabilistic_collaborative_filtering import ProbabilisticMatrixFactorizationAlgorithm
 
 class VideoGameRecommendationProvider(RecommendationProvider):
-    algorithm = GhettoAlgorithm()
+    algorithm = ProbabilisticMatrixFactorizationAlgorithm()
 
     def get_users(self):
         return User.objects.filter(is_active=True, votes__isnull=False).distinct()
