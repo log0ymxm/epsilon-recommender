@@ -10,6 +10,7 @@ class VideoGameRankingManager(models.Manager):
     def get_query_set(self):
         return super(VideoGameRankingManager, self).get_query_set().filter(~Q(name='') &
                                                                            ~Q(description='') &
+                                                                           ~Q(slug='') &
                                                                            Q(ign_image__isnull=False))
 
 
