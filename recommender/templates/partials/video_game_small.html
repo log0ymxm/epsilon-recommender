@@ -4,7 +4,7 @@
 
 <img src="{{video_game.ign_image}}" width="100">
 <h2>
-  <a href="{% url 'game_detail_page' %}">
+  <a href="{% url 'game_detail_page' video_game.slug %}">
     {{video_game.name}}
   </a>
 </h2>

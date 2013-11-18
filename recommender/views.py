@@ -65,12 +65,11 @@ def genre(request):
                               locals(),
                               context_instance=RequestContext(request))
 
-def game_detail_page(request):
+def game_detail_page(request, slug):
     title = "Game Detail Page"
 
-    v = VideoGame.ranked.all()[0]
+    v = VideoGame.ranked.get(slug=slug)
 
     return render_to_response('game_detail_page.html',
                               locals(),
                               context_instance=RequestContext(request))
-
