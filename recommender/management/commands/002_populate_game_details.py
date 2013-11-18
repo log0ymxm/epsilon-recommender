@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils.encoding import smart_str
 from django.db import IntegrityError
 from bs4 import BeautifulSoup
-from recommender.utils import slugify
+from django.template.defaultfilters import slugify
 import urllib2
 import time
 import datetime
