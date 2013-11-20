@@ -28,8 +28,16 @@ angular.module('ratings').directive("angularRatings", function() {
                             'X-CSRFToken': $attrs.csrf
                         }
                     }).error(function(data) {
+			console.log(data);
                         return $scope.rating = 0;
-                    });
+                    }).success(function(data) {
+			console.log(data);
+			if (data === "Too many votes from this IP address for this object.") {
+			    alert("Too many votes for this game!");
+			    $scope.rating = 0;
+			}
+			    
+		    });
                 }
             };
             return $scope.setOver = function(n) {
