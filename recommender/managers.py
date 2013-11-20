@@ -34,9 +34,6 @@ class VideoGameRankingManager(models.Manager):
                 ordered_objects.append( object_ids[i] )
 
             objects = self.get_query_set().in_bulk(ordered_objects)
-            print objects
-            print ordered_objects
-
             sorted_objects = [objects[id] for id in ordered_objects if id in objects]
 
             return sorted_objects
