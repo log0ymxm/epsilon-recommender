@@ -2,9 +2,8 @@ from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
 from tastypie.models import create_api_key
-from recommender.vendor.djangoratings.fields import RatingField
-
-from recommender.vendor.djangoratings.models import Vote
+from djangoratings.fields import RatingField
+from djangoratings.models import Vote
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Sum, Count
 import numpy as np

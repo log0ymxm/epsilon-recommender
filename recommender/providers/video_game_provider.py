@@ -3,7 +3,7 @@ from django.contrib.sites.models import Site
 from recommends.providers import recommendation_registry, RecommendationProvider
 
 from recommender.models import VideoGame
-from recommender.vendor.djangoratings.models import Vote
+from djangoratings.models import Vote
 from recommender.algorithms.probabilistic_collaborative_filtering import ProbabilisticMatrixFactorizationAlgorithm
 
 class VideoGameRecommendationProvider(RecommendationProvider):

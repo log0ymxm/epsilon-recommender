@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from tastypie.api import Api
 from recommender.api import UserResource, VideoGameResource, ReviewResource
 from recommender import settings
-from recommender.vendor.djangoratings.views import AddRatingFromModel
+from djangoratings.views import AddRatingFromModel
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin

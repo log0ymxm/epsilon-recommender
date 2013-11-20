@@ -148,7 +148,7 @@ INSTALLED_APPS = (
 
     'recommends',
     'recommends.storages.djangoorm',
-    'recommender.vendor.djangoratings',
+    'djangoratings',
 )
 
 # A sample logging configuration. The only tangible logging
