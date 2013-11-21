@@ -61,6 +61,11 @@
               {{ user.email }} <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+	       <li>
+                <a href="{% url 'user_profile' %}">
+                  {% trans "User Profile" %}
+                </a>
+              </li>
               <li>
                 <a href="{% url 'auth_password_change' %}">
                   {% trans "Change password" %}

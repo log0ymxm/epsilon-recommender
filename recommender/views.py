@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.db.models import Q
-from recommender.forms import SearchForm
+from recommender.forms import SearchForm, UserProfileForm
 
 from recommender.models import VideoGame
 
@@ -71,5 +71,19 @@ def game_detail_page(request, slug):
     v = VideoGame.ranked.get(slug=slug)
 
     return render_to_response('game_detail_page.html',
+                              locals(),
+                              context_instance=RequestContext(request))
+
+def user_profile(request):
+    title = "User Profile"
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = UserProfileForm()
+                              
+    return render_to_response('user_profile.html',
                               locals(),
                               context_instance=RequestContext(request))
