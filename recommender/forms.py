@@ -1,12 +1,12 @@
 from django import forms
-from recommender.models import Platform
+from recommender.models import Platform, Genre
 from django_select2 import *
 
 class SearchForm(forms.Form):
     title = forms.CharField(max_length=100, required = False)
     release_date = forms.DateField(required = False)
     platform = ModelSelect2Field(queryset=Platform.objects, required=False)
-    genre = forms.CharField(max_length=100, required = False)
+    genre = ModelSelect2Field(queryset=Genre.objects, required=False)
 
 
 class UserProfileForm(forms.Form):

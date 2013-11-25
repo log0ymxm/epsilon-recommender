@@ -37,7 +37,7 @@ def search(request):
             if form.cleaned_data['platform']:
                 video_games = video_games.filter(platforms=form.cleaned_data['platform'])
             if form.cleaned_data['genre']:
-                video_games = video_games.filter(genre__icontains=form.cleaned_data['genre'])
+                video_games = video_games.filter(genre=form.cleaned_data['genre'])
 
             video_games = video_games[:20]
     else:
