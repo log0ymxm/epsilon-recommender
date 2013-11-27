@@ -81,7 +81,14 @@ def user_profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST)
         if form.is_valid():
-            pass
+          user_profile = request.user.get_profile()
+          user.name = form.cleaned_data['name']
+          gender = forms.clean_data['gender']
+          location = forms.clean_data['location']
+          date_of_birth = forms.clean_data['date_of_birth']
+          about_you = forms.clean_data['about_you']
+          platforms_owned = forms.clean_data['platforms_owned']
+
     else:
         form = UserProfileForm()
                               

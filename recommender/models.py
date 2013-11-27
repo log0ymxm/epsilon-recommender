@@ -13,10 +13,24 @@ from recommender.managers import VideoGameRankingManager
 # Ensure that api keys are created on user creation
 models.signals.post_save.connect(create_api_key, sender=User)
 
+class Platform(models.Model):
+    name = models.CharField(max_length=512, unique=True)
+    slug = models.SlugField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Video Game Platform'
+
+    def __unicode__(self):
+        return self.name
+
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
-    bio = models.CharField(max_length=500, blank=True, null=True)
     url = models.URLField(max_length=500, blank=True, null=True)
+    gender = models.CharField(max_length=100, blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    about_you = models.TextField(blank=True, null=True)
+    platforms_owned = models.ManyToManyField(Platform, blank=True, null=True)
 
     def __unicode__(self):
         return "Profile - %s" % (self.user)
@@ -36,16 +50,6 @@ class Feature(models.Model):
 
     class Meta:
         verbose_name = 'Video Game Feature'
-
-    def __unicode__(self):
-        return self.name
-
-class Platform(models.Model):
-    name = models.CharField(max_length=512, unique=True)
-    slug = models.SlugField(max_length=255)
-
-    class Meta:
-        verbose_name = 'Video Game Platform'
 
     def __unicode__(self):
         return self.name

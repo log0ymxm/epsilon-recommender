@@ -24,6 +24,8 @@ An object used by RadioSelect to enable customization of radio widgets.
 
 
 class CustomChoiceFieldRenderer(object):
+
+    columns = 3
     def render(self):
         """
         Outputs a <ul> for this set of choice fields.
@@ -31,9 +33,11 @@ class CustomChoiceFieldRenderer(object):
         item in the list will get an id of `$id_$i`).
         """
         id_ = self.attrs.get('id', None)
-        start_tag = format_html('<ul id="{0}">', id_) if id_ else '<ul>'
+        start_tag = format_html('<div id="{0}">', id_) if id_ else '<div>'
         output = [start_tag]
         for i, choice in enumerate(self.choices):
+            if i%self.columns == 0:
+                format_html('<ul class="col-md-3">')
             choice_value, choice_label = choice
             if isinstance(choice_label, (tuple, list)):
                 attrs_plus = self.attrs.copy()
@@ -50,7 +54,10 @@ class CustomChoiceFieldRenderer(object):
                 w = self.choice_input_class(self.name, self.value,
                                             self.attrs.copy(), choice, i)
                 output.append(format_html('<li>{0}</li>', force_text(w)))
-        output.append('</ul>')
+            if i%self.columns == self.columns:
+                format_html('</ul>')
+        output.append('</div>')
+
         return mark_safe('\n'.join(output))
 
 class CustomCheckboxFieldRenderer(CustomChoiceFieldRenderer):
