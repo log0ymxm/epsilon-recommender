@@ -46,24 +46,8 @@
           <li class="{% if '/' == request.path %}active{% endif %}">
             <a href="{% url 'home' %}">Home</a>
           </li>
-	  
       <li class="{% if '/genre' == request.path %}active{% endif %}">
-      <a href="{% url 'genre' %}">Genre</a>
     </li>
-    <li>
-      
-      <form class="navbar-form navbar-left" role="search" action="{% url 'search' %}" method="post">
-        {% csrf_token %}
-      <div class="form-group">
-        <input type="text" name="title" class="form-control" placeholder="Search">
-      </div>
-      <button type="submit" class="btn btn-default">Search Game</button>
-    </form>
-    </li>
-        </ul>
-	  <li class="{% if '/search' == request.path %}active{% endif %}">
-	    <a href="{% url 'search' %}">Search</a>
-	  </li>
        <li class="dropdown {% if '/genre' == request.path %}active{% endif %}">
          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -74,6 +58,16 @@
              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
           </ul>
         </li>
+    <li>
+      <form class="navbar-form navbar-left" role="search" action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+      <div class="form-group">
+        <input type="text" name="title" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Search Game</button>
+    </form>
+    </li>
+        </ul>
        </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
