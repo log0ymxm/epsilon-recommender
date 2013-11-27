@@ -1,6 +1,7 @@
 from django import forms
 from recommender.models import Platform, Genre
 from django_select2 import *
+from recommender.widgets import CustomCheckboxSelectMultiple
 
 class SearchForm(forms.Form):
     title = forms.CharField(max_length=100, required = False)
@@ -18,4 +19,4 @@ class UserProfileForm(forms.Form):
     date_of_birth = forms.DateField(required = False)
     about_you = forms.CharField(widget=forms.Textarea)
     platforms_owned = forms.MultipleChoiceField(required=False,
-        widget=forms.CheckboxSelectMultiple, choices=CHOICES)
+        widget=CustomCheckboxSelectMultiple, choices=CHOICES)
