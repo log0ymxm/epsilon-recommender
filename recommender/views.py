@@ -2,7 +2,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
-from recommender.forms import SearchForm, UserProfileForm
+from recommender.forms import SearchForm, UserProfileForm, ReviewForm
+
 
 from recommender.models import VideoGame, Genre, UserProfile
 
@@ -72,9 +73,19 @@ def game_detail_page(request, slug):
 
     v = VideoGame.ranked.get(slug=slug)
 
+    if request.method == 'POST':
+      form = ReviewForm(request.POST)
+      if form.is_valid():
+        pass
+    else:
+       form = ReviewForm()
+
+    # couldn't find proper documentation to solve this problem
+    # reviews = review.object.filter(video_games = v)
+
     return render_to_response('game_detail_page.html',
-                              locals(),
-                              context_instance=RequestContext(request))
+                             locals(),
+                             context_instance=RequestContext(request))
 
 def user_profile(request):
     title = "User Profile"
@@ -116,15 +127,3 @@ def user_profile(request):
                               locals(),
                               context_instance=RequestContext(request))
 
-def review_form(request):
-  title = "Review"
-  if request.method == 'POST':
-      form = ReviewForm(request.POST)
-      if form.is_valid():
-        pass
-  else:
-    form = ReviewForm()
-
-  return render_to_response('review_form.html',
-                             locals(),
-                             context_instance=RequestContext(request))

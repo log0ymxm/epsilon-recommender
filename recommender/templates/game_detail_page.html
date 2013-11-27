@@ -42,26 +42,18 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      <!-- put user name here -->
-    </div>
     <div class="col-md-8">
-      
-
       <div class="well">
-    <form method="post" class="form">
+    <form method="post" action={% url 'game_detail_page' v.slug %} class="form">
       <fieldset>
         {% csrf_token %}
         {{ form | crispy }}
-
         <div class="control-group">
           <input type="submit" value="Submit" class="btn btn-default" />
         </div>
-      </fieldset>
-    </form>
-  </div>
-
-
+        </fieldset>
+         </form>
+      </div>
     </div>
   </div>
 </div>
