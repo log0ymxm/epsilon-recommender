@@ -95,3 +95,18 @@ def user_profile(request):
     return render_to_response('user_profile.html',
                               locals(),
                               context_instance=RequestContext(request))
+
+def review_form(request):
+  title = "Review"
+
+  if request.method == 'POST':
+      form = ReviewForm(request.POST)
+      if form.is_valid():
+        pass
+  else:
+     form = ReviewForm()
+
+  return render_to_response('review_form.html',
+                             locals(),
+                             context_instance=RequestContext(request))
+
