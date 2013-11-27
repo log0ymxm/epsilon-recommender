@@ -17,7 +17,5 @@ class UserProfileForm(forms.Form):
     location = forms.CharField(max_length=100, required = False)
     date_of_birth = forms.DateField(required = False)
     about_you = forms.CharField(widget=forms.Textarea)
-    platforms_owned = forms.MultipleChoiceField(
-        choices=CHOICES,
-        label="...",
-        required=False)
+    platforms_owned = forms.MultipleChoiceField(required=False,
+        widget=forms.CheckboxSelectMultiple, choices=CHOICES)
