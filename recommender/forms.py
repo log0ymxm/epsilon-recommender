@@ -20,3 +20,7 @@ class UserProfileForm(forms.Form):
     about_you = forms.CharField(widget=forms.Textarea)
     platforms_owned = forms.MultipleChoiceField(required=False,
         widget=CustomCheckboxSelectMultiple, choices=CHOICES)
+
+class ReviewForm(forms.Form):
+    review = forms.CharField(widget=forms.Textarea)
+    
