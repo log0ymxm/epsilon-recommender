@@ -15,7 +15,7 @@
     <div class="col-md-12">
 
       <div class="well">
-	<form method="post" class="form">
+	<form method="post" class="form" action="{% url 'user_profile' %}">
 	  <fieldset>
             {% csrf_token %}
             {{ form | crispy }}
@@ -30,4 +30,3 @@
   </div>
 </div>
 {% endblock %}
-git 

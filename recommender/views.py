@@ -1,9 +1,10 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 from recommender.forms import SearchForm, UserProfileForm
 
-from recommender.models import VideoGame, Genre
+from recommender.models import VideoGame, Genre, UserProfile
 
 def home(request):
     title = "Home"
@@ -78,35 +79,52 @@ def game_detail_page(request, slug):
 def user_profile(request):
     title = "User Profile"
 
+    try:
+        profile = request.user.get_profile()
+    except ObjectDoesNotExist:
+        profile = UserProfile.objects.create(user=request.user)
+
     if request.method == 'POST':
         form = UserProfileForm(request.POST)
         if form.is_valid():
-          user_profile = request.user.get_profile()
-          user.name = form.cleaned_data['name']
-          gender = forms.clean_data['gender']
-          location = forms.clean_data['location']
-          date_of_birth = forms.clean_data['date_of_birth']
-          about_you = forms.clean_data['about_you']
-          platforms_owned = forms.clean_data['platforms_owned']
+            request.user.first_name = form.cleaned_data['first_name']
+            request.user.last_name = form.cleaned_data['last_name']
+            request.user.email = form.cleaned_data['email']
+            profile.gender = form.cleaned_data['gender']
+            profile.location = form.cleaned_data['location']
+            profile.date_of_birth = form.cleaned_data['date_of_birth']
+            profile.about_you = form.cleaned_data['about_you']
+            for p in form.cleaned_data['platforms_owned']:
+                profile.platforms_owned.add(p)
+
+            request.user.save()
+            profile.save()
 
     else:
-        form = UserProfileForm()
-                              
+        form = UserProfileForm(initial={
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+            'gender': profile.gender,
+            'location': profile.location,
+            'date_of_birth': profile.date_of_birth,
+            'about_you': profile.about_you,
+            'platforms_owned': profile.platforms_owned
+        })
+
     return render_to_response('user_profile.html',
                               locals(),
                               context_instance=RequestContext(request))
 
 def review_form(request):
   title = "Review"
-
   if request.method == 'POST':
       form = ReviewForm(request.POST)
       if form.is_valid():
         pass
   else:
-     form = ReviewForm()
+    form = ReviewForm()
 
   return render_to_response('review_form.html',
                              locals(),
                              context_instance=RequestContext(request))
-

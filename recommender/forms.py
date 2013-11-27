@@ -11,16 +11,16 @@ class SearchForm(forms.Form):
 
 
 class UserProfileForm(forms.Form):
-    CHOICES = ((0,'Xbox 360'),(1,'Wii'),(2,'PS3'),(3,'Xbox One'), (4,'PS4'), (5,'Wii U'),(6,'3DS'), (7,'PC'),(8,'PSP'),(9,'PS Vita')) 
-    #gravatar =
-    name = forms.CharField(max_length=100, required = False)
-    gender = forms.CharField(max_length=100, required = False)
-    location = forms.CharField(max_length=100, required = False)
-    date_of_birth = forms.DateField(required = False)
-    about_you = forms.CharField(widget=forms.Textarea)
-    platforms_owned = forms.MultipleChoiceField(required=False,
-        widget=CustomCheckboxSelectMultiple, choices=CHOICES)
+    first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=100)
+    email = forms.CharField(max_length=100)
+    gender = forms.CharField(max_length=100, required=False)
+    location = forms.CharField(max_length=100, required=False)
+    date_of_birth = forms.DateField(required=False)
+    about_you = forms.CharField(widget=forms.Textarea, required=False)
+    platforms_owned = forms.ModelMultipleChoiceField(Platform.objects.all(),
+                                                     required=False,
+                                                     widget=CustomCheckboxSelectMultiple)
 
 class ReviewForm(forms.Form):
     review = forms.CharField(widget=forms.Textarea)
-    

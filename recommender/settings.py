@@ -204,7 +204,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST', '')
 EMAIL_USE_TLS = bool(os.environ.get('EMAIL_HOST', True))
 EMAIL_USE_SSL = bool(os.environ.get('EMAIL_HOST', True))
 
-AUTH_PROFILE_MODEL = 'recommender.UserProfile'
+AUTH_PROFILE_MODULE = 'recommender.UserProfile'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'

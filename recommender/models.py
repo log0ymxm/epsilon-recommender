@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from tastypie.models import create_api_key
 from djangoratings.fields import RatingField
@@ -130,3 +131,9 @@ class Review(models.Model):
 
     def __unicode__():
         return '%s - %s' % (self.user, self.video_game)
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
