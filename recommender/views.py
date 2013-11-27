@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.db.models import Q
 from recommender.forms import SearchForm, UserProfileForm
 
-from recommender.models import VideoGame
+from recommender.models import VideoGame, Genre
 
 def home(request):
     title = "Home"
@@ -51,7 +51,8 @@ def search(request):
 
 def genre_detail(request, slug):
     title = "Genre"
-    video_games = VideoGame.ranked.filter(genre_slug = slug)
+    video_games = VideoGame.ranked.filter(genre__slug = slug)
+    genre = Genre.objects.get(slug = slug)
 
     return render_to_response('genre_detail.html',
                               locals(),

@@ -64,13 +64,12 @@
 	  <li class="{% if '/search' == request.path %}active{% endif %}">
 	    <a href="{% url 'search' %}">Search</a>
 	  </li>
-
        <li class="dropdown {% if '/genre' == request.path %}active{% endif %}">
          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Shooter</a></li>
-             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{request.genres}}</a></li>
-             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+             {% for genre in request.genres %}
+             <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'genre' genre.slug %}">{{genre.name}}</a></li>
+             {% endfor %}
              <li role="presentation" class="divider"></li>
              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
           </ul>
