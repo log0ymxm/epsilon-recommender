@@ -1,5 +1,4 @@
 #!/bin/bash
-updated bin/update
 pip install numpy==1.7.1
 pip install scipy==0.12.0
 pip install -r requirements.txt
