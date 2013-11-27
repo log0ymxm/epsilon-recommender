@@ -114,6 +114,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'recommender.middleware.crossdomainxhr.XsSharing',
+    'recommender.middleware.all_genres.AllGenres',
 )
 
 ROOT_URLCONF = 'recommender.urls'
