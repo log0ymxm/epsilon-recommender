@@ -46,29 +46,26 @@
           <li class="{% if '/' == request.path %}active{% endif %}">
             <a href="{% url 'home' %}">Home</a>
           </li>
-      <li class="{% if '/genre' == request.path %}active{% endif %}">
-    </li>
-       <li class="dropdown {% if '/genre' == request.path %}active{% endif %}">
-         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-             {% for genre in request.genres %}
-             <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'genre' genre.slug %}">{{genre.name}}</a></li>
-             {% endfor %}
-             <li role="presentation" class="divider"></li>
-             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-          </ul>
-        </li>
-    <li>
-      <form class="navbar-form navbar-left" role="search" action="{% url 'search' %}" method="post">
-        {% csrf_token %}
-      <div class="form-group">
-        <input type="text" name="title" class="form-control" placeholder="Search">
-      </div>
-      <button type="submit" class="btn btn-default">Search Game</button>
-    </form>
-    </li>
+          <li class="dropdown {% if '/genre' == request.path %}active{% endif %}">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+              {% for genre in request.genres %}
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'genre' genre.slug %}">{{genre.name}}</a></li>
+              {% endfor %}
+              <li role="presentation" class="divider"></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+            </ul>
+          </li>
+          <li>
+            <form class="navbar-form navbar-left" role="search" action="{% url 'search' %}" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Search Game</button>
+            </form>
+          </li>
         </ul>
-       </ul>
         <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
           <li class="dropdown">
@@ -76,7 +73,7 @@
               {{ user.email }} <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-	       <li>
+              <li>
                 <a href="{% url 'user_profile' %}">
                   {% trans "User Profile" %}
                 </a>
@@ -97,14 +94,14 @@
               </li>
             </ul>
           </li>
-	  {% else %}
+          {% else %}
           <li class="{% if '/accounts/login' in request.path %}active{% endif %}">
-	    <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
+            <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
           </li>
           <li class="{% if '/accounts/register' in request.path %}active{% endif %}">
-	    <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>
+            <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>
           </li>
-	  {% endif %}
+          {% endif %}
         </ul>
       </div><!-- /.navbar-collapse -->
     </nav>
