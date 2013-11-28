@@ -11,7 +11,7 @@ Installing and creating the database. We'll use postgres in production. Here are
 
     # running the psql command as the postgres user, we will
     # execute SQL to create our db user, and project database
-    sudo -u postgres psql -c "CREATE USER epsilon WITH PASSWORD '1SmEAizt07mp4nawNYOsWrP7cwQowSRuZA64CAo9lj';"
+    sudo -u postgres psql -c "CREATE USER epsilon WITH PASSWORD '1SnEAizt07np4mawMYOsWrP7cwQowSRuZA64CAo9lj';"
     sudo -u postgres psql -c "CREATE DATABASE epsilon_recommender;"
     sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE epsilon_recommender TO epsilon;"
 
