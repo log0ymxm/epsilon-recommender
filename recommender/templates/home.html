@@ -4,12 +4,6 @@
 {% block content %}
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h1>{{title}}</h1>
-    </div>
-  </div>
-
   {% if request.user.is_authenticated %}
   {% suggested as suggestions limit 4  %}
   {% if suggested %}
