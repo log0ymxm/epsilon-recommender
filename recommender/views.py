@@ -51,10 +51,13 @@ def search(request):
                               locals(),
                               context_instance=RequestContext(request))
 
-def genre_detail(request, slug):
+def genre_detail(request, slug=None):
     title = "Genre"
-    video_games = VideoGame.ranked.filter(genre__slug = slug)
-    genre = Genre.objects.get(slug = slug)
+    if slug:
+        video_games = VideoGame.ranked.filter(genre__slug = slug)
+        genre = Genre.objects.get(slug = slug)
+    else:
+        video_games = VideoGame.ranked.all()[:10]
 
     return render_to_response('genre_detail.html',
                               locals(),

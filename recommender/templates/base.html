@@ -53,7 +53,7 @@
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'genre' genre.slug %}">{{genre.name}}</a></li>
               {% endfor %}
               <li role="presentation" class="divider"></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'genre' %}">All</a></li>
             </ul>
           </li>
           <li>
