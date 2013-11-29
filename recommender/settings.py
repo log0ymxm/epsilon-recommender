@@ -2,9 +2,15 @@ import os
 import django
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
+def str2bool(v):
+  if isinstance(v, str):
+    return v.lower() in ("yes", "true", "t", "1")
+  else:
+    return v
+
 # Django settings for recommender project.
 
-DEBUG = bool(os.environ.get('DEBUG', True))
+DEBUG = str2bool(os.environ.get('DEBUG', True))
 TEMPLATE_DEBUG = DEBUG
 TASTYPIE_FULL_DEBUG = DEBUG
 
@@ -201,8 +207,8 @@ EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = os.environ.get('EMAIL_HOST', 587)
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST', 'paulnglsh@gmail.com')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST', '')
-EMAIL_USE_TLS = bool(os.environ.get('EMAIL_HOST', True))
-EMAIL_USE_SSL = bool(os.environ.get('EMAIL_HOST', True))
+EMAIL_USE_TLS = str2bool(os.environ.get('EMAIL_HOST', True))
+EMAIL_USE_SSL = str2bool(os.environ.get('EMAIL_HOST', True))
 
 AUTH_PROFILE_MODULE = 'recommender.UserProfile'
 
@@ -215,7 +221,7 @@ RATINGS_VOTES_PER_IP = 100
 
 AUTO_RENDER_SELECT2_STATICS = False
 
-PRODUCTION = bool(os.environ.get('ONFRST_PRODUCTION', False))
+PRODUCTION = str2bool(os.environ.get('ONFRST_PRODUCTION', False))
 
 if PRODUCTION:
     RATINGS_VOTES_PER_IP = 3
