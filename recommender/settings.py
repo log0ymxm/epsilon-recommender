@@ -29,7 +29,7 @@ DATABASES = {
         'NAME': 'epsilon_recommender',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'epsilon',
-        'PASSWORD': '1SmEAizt07mp4nawNYOsWrP7cwQowSRuZA64CAo9lj',
+        'PASSWORD': 'washer27',
         'HOST': '127.0.0.1',                                # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                                         # Set to empty string for default.
     }
@@ -204,11 +204,11 @@ TASTYPIE_ALLOW_MISSING_SLASH = True
 
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
-EMAIL_PORT = os.environ.get('EMAIL_HOST', 587)
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST', 'paulnglsh@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST', '')
-EMAIL_USE_TLS = str2bool(os.environ.get('EMAIL_HOST', True))
-EMAIL_USE_SSL = str2bool(os.environ.get('EMAIL_HOST', True))
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 587)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'paulnglsh@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = str2bool(os.environ.get('EMAIL_USE_TLS', True))
+EMAIL_USE_SSL = str2bool(os.environ.get('EMAIL_USE_SSL', True))
 
 AUTH_PROFILE_MODULE = 'recommender.UserProfile'
 
@@ -225,8 +225,9 @@ PRODUCTION = str2bool(os.environ.get('ONFRST_PRODUCTION', False))
 
 if PRODUCTION:
     RATINGS_VOTES_PER_IP = 3
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    CSRF_COOKIE_DOMAIN = '.onfrst.com'
 
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
