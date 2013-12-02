@@ -58,14 +58,16 @@
   </div>
 <div>
   {% for rev in reviews %}
-    <div lass="col-md-4">
-      {{rev.user}}
-    </div>
-    <div class="col-md-8">
-     <div class="well">
+    <div lass="col-md-8">
+    {{rev.user}}
+      <div lass="col-md-8">
+        <div class="well">
         {{rev.comments}}
-      {% endfor %}
-  </div>
+        </div>
+      </div>
+   {% endfor %}
+
+   </div>
 </div>
 
 {% endblock %}
