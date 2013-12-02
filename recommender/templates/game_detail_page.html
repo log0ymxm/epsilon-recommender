@@ -44,7 +44,7 @@
   <div class="row">
     <div class="col-md-8">
       <div class="well">
-    <form method="post" action={% url 'game_detail_page' v.slug %} class="form">
+      <form method="post" action={% url 'game_detail_page' v.slug %} class="form">
       <fieldset>
         {% csrf_token %}
         {{ form | crispy }}
@@ -55,6 +55,16 @@
          </form>
       </div>
     </div>
+  </div>
+<div>
+  {% for rev in reviews %}
+    <div lass="col-md-4">
+      {{rev.user}}
+    </div>
+    <div class="col-md-8">
+     <div class="well">
+        {{rev.comments}}
+      {% endfor %}
   </div>
 </div>
 

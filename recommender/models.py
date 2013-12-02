@@ -129,7 +129,7 @@ class Review(models.Model):
     rating = RatingField(range=5, can_change_vote=True)
     comments = models.TextField(null=True, blank=True)
 
-    def __unicode__():
+    def __unicode__(self):
         return '%s - %s' % (self.user, self.video_game)
 
 def create_user_profile(sender, instance, created, **kwargs):

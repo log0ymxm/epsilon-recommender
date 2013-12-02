@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from recommender.forms import SearchForm, UserProfileForm, ReviewForm
+from recommender.models import Review
 
 
 from recommender.models import VideoGame, Genre, UserProfile
@@ -80,12 +81,14 @@ def game_detail_page(request, slug):
     if request.method == 'POST':
       form = ReviewForm(request.POST)
       if form.is_valid():
+        review, created = Review.objects.get_or_create(user = request.user, video_game = v)
+        review.comments = form.cleaned_data['review']
+        review.save()
         pass
     else:
        form = ReviewForm()
 
-    # couldn't find proper documentation to solve this problem
-    # reviews = review.object.filter(video_games = v)
+    reviews = Review.objects.filter(video_game = v)
 
     return render_to_response('game_detail_page.html',
                              locals(),
