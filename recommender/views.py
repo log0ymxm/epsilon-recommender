@@ -76,7 +76,7 @@ def genre(request):
 def game_detail_page(request, slug):
     title = "Game Detail Page"
 
-    v = VideoGame.ranked.get(slug=slug)
+    v = VideoGame.ranked.filter(slug=slug)[0]
 
     if request.method == 'POST':
       form = ReviewForm(request.POST)
