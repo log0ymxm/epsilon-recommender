@@ -6,7 +6,7 @@
 <div class="container">
   {% if request.user.is_authenticated %}
   {% suggested as suggestions limit 4  %}
-  {% if suggested %}
+  {% if suggestions %}
   <div class="row"> <div class="col-md-12">
       <br>
       <b><h2>Recommended For You</h2><br/>
