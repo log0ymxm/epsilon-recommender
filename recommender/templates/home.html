@@ -26,9 +26,9 @@
   {% endif %}
   {% endif %}
 
-  <div class="row"> <div class="col-md-12">
-      <br>
-      <b><h2>Popular Titles</h2><br/>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Popular Titles</h2>
         <div class="row">
           <div class="col-md-12">
             {% for video_game in popular_titles %}
@@ -45,8 +45,24 @@
 
   <div class="row">
     <div class="col-md-12">
-      <br><br>
-      <b><h2>New Titles</h2><br/>
+      <h2>Random Titles</h2>
+        <div class="row">
+          <div class="col-md-12">
+            {% for video_game in random_titles %}
+            {% if forloop.counter0|divisibleby:4 %} <div class="row"> {% endif %}
+              <div class="col-md-3">
+                {% include 'partials/video_game_small.html' with video_game=video_game %}
+              </div>
+              {% if forloop.counter|divisibleby:4 %} </div> {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>New Titles</h2>
         <div class="row">
           <div class="col-md-12">
             {% for v in new_titles %}

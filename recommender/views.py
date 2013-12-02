@@ -11,6 +11,7 @@ def home(request):
     title = "Home"
     popular_titles = VideoGame.ranked.smart_rating_order(limit=4)
     new_titles = VideoGame.ranked.order_by('-release_date')[:4]
+    random_titles = VideoGame.ranked.order_by('?')[:4]
 
     return render_to_response('home.html',
                               locals(),
@@ -129,4 +130,3 @@ def user_profile(request):
     return render_to_response('user_profile.html',
                               locals(),
                               context_instance=RequestContext(request))
-
